@@ -82,16 +82,21 @@ tr:hover td{background:#fafaf9}
 .empty-state{text-align:center;padding:32px;color:#aaa;font-size:13px}
 .tip{font-size:11px;color:#999;margin-top:6px;padding:6px 10px;background:#f8f8f6;border-radius:6px}
 
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:flex;align-items:center;justify-content:center;padding:24px}
-.modal-card{background:#fff;border-radius:16px;padding:32px;width:100%;max-width:400px}
-.modal-title{font-size:18px;font-weight:700;margin-bottom:8px}
-.modal-sub{font-size:13px;color:#888;margin-bottom:20px;line-height:1.6}
-.modal-field{margin-bottom:14px}
-.modal-field label{display:block;font-size:12px;font-weight:500;color:#555;margin-bottom:5px}
+/* 登录页 */
+.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f5f3;padding:24px}
+.login-card{background:#fff;border:1px solid #e8e8e6;border-radius:16px;padding:32px;width:100%;max-width:380px}
+.login-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:4px}
+.login-sub{font-size:13px;color:#888;text-align:center;margin-bottom:24px}
+.login-field{margin-bottom:14px}
+.login-field label{display:block;font-size:12px;font-weight:500;color:#555;margin-bottom:5px}
+.login-hint-text{font-size:11px;color:#aaa;margin-top:4px;line-height:1.5}
 .primary-btn{width:100%;height:44px;background:#1a1a1a;color:#fff;border-color:#1a1a1a;font-size:14px;font-weight:600;border-radius:10px;margin-top:6px}
 .primary-btn:hover{background:#333}
-.modal-err{font-size:12px;color:#c0392b;margin-top:8px;background:#FCEBEB;padding:6px 10px;border-radius:6px;display:none}
-.modal-hint{font-size:11px;color:#aaa;text-align:center;margin-top:12px;line-height:1.6}
+.primary-btn:disabled{background:#999;border-color:#999;cursor:not-allowed}
+.login-err{font-size:12px;color:#c0392b;margin-top:8px;background:#FCEBEB;padding:6px 10px;border-radius:6px;display:none}
+.login-footer{font-size:11px;color:#aaa;text-align:center;margin-top:16px;line-height:1.6}
+.token-section{border-top:1px solid #f0f0ee;margin-top:16px;padding-top:16px}
+.token-toggle{font-size:12px;color:#378ADD;cursor:pointer;text-align:center;display:block;margin-bottom:8px}
 
 .status-bar{border-radius:8px;padding:8px 12px;font-size:12px;margin-bottom:12px;display:none}
 .status-bar.show{display:block}
@@ -99,8 +104,8 @@ tr:hover td{background:#fafaf9}
 .status-bar.err{background:#FCEBEB;border:1px solid #f5c6cb;color:#721c24}
 .status-bar.ok{background:#d4edda;border:1px solid #c3e6cb;color:#155724}
 
-.photo-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;align-items:center;justify-content:center;padding:20px}
-.photo-modal-overlay.open{display:flex}
+.photo-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;align-items:center;justify-content:center;padding:20px}
+.photo-modal-bg.open{display:flex}
 .photo-modal{background:#fff;border-radius:14px;padding:20px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto}
 .photo-modal-title{font-size:15px;font-weight:600;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
 .photo-modal-close{background:none;border:none;font-size:22px;color:#aaa;padding:0;height:auto;cursor:pointer}
@@ -118,27 +123,13 @@ tr:hover td{background:#fafaf9}
 </head>
 <body>
 
-<!-- TOKEN 设置弹窗 -->
-<div class="overlay" id="token-overlay" style="display:none">
-  <div class="modal-card">
-    <div class="modal-title">🔑 首次配置</div>
-    <div class="modal-sub">请输入 GitHub Personal Access Token（ghp_ 开头）。<br>仅存在你的浏览器里，不会上传到任何地方。</div>
-    <div class="modal-field">
-      <label>GitHub Token</label>
-      <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxx">
-    </div>
-    <div class="modal-err" id="token-err"></div>
-    <button class="primary-btn" onclick="saveToken()">保存并继续</button>
-    <div class="modal-hint">token 只需要配置一次，下次打开自动读取</div>
-  </div>
-</div>
+<!-- 登录页 -->
+<div id="login-page" class="login-page">
+  <div class="login-card">
+    <div class="login-title">📦 搬迁标签登记</div>
+    <div class="login-sub">信息数据部 · 北京办公室搬迁</div>
 
-<!-- 登录弹窗 -->
-<div class="overlay" id="login-overlay">
-  <div class="modal-card">
-    <div class="modal-title">📦 搬迁标签登记</div>
-    <div class="modal-sub">信息数据部 · 北京办公室搬迁</div>
-    <div class="modal-field">
+    <div class="login-field">
       <label>姓名</label>
       <select id="l-name">
         <option value="">请选择姓名</option>
@@ -147,13 +138,26 @@ tr:hover td{background:#fafaf9}
         <option>宫鹏飞</option><option>张建业</option>
       </select>
     </div>
-    <div class="modal-field">
+    <div class="login-field">
       <label>密码</label>
       <input type="password" id="l-pw" placeholder="jwms.首字母">
     </div>
-    <div class="modal-err" id="l-err"></div>
-    <button class="primary-btn" onclick="doLogin()">登录 →</button>
-    <div class="modal-hint">密码格式：jwms.姓名拼音首字母<br>如马小清 → jwms.mxq | 张旭博 → jwms.zxb</div>
+
+    <!-- Token 区域，默认隐藏，首次使用时显示 -->
+    <div id="token-section" class="token-section" style="display:none">
+      <div class="login-field">
+        <label>GitHub Token（首次使用填写一次）</label>
+        <input type="password" id="l-token" placeholder="ghp_xxxxxxxxxxxxxxxx">
+        <div class="login-hint-text">Token 只存在你的浏览器里，填写一次后自动记住</div>
+      </div>
+    </div>
+
+    <div class="login-err" id="l-err"></div>
+    <button class="primary-btn" id="login-btn" onclick="doLogin()">登录 →</button>
+    <div class="login-footer">
+      密码格式：jwms.姓名拼音首字母<br>
+      如马小清 → jwms.mxq | 张旭博 → jwms.zxb
+    </div>
   </div>
 </div>
 
@@ -293,7 +297,7 @@ tr:hover td{background:#fafaf9}
 </div>
 
 <!-- 照片弹窗 -->
-<div class="photo-modal-overlay" id="photo-modal" onclick="closePhotoModal(event)">
+<div class="photo-modal-bg" id="photo-modal" onclick="closePhotoModal(event)">
   <div class="photo-modal" onclick="event.stopPropagation()">
     <div class="photo-modal-title">
       <span id="modal-title-text">标签照片</span>
@@ -331,48 +335,31 @@ let pendingPhotos = {box:[], asset:[]};
 let saving = false;
 let GITHUB_TOKEN = '';
 
-// ===== 启动：检查 Token =====
+// 启动：检查是否有 Token
 window.onload = function() {
   const saved = localStorage.getItem(TOKEN_KEY);
   if (saved) {
     GITHUB_TOKEN = saved;
-    document.getElementById('login-overlay').style.display = 'flex';
+    // 有 Token，隐藏 Token 输入区
+    document.getElementById('token-section').style.display = 'none';
   } else {
-    document.getElementById('token-overlay').style.display = 'flex';
+    // 没有 Token，显示 Token 输入区
+    document.getElementById('token-section').style.display = 'block';
   }
 };
 
-async function saveToken() {
-  const val = document.getElementById('token-input').value.trim();
-  const err = document.getElementById('token-err');
-  if (!val || !val.startsWith('ghp_')) {
-    err.textContent = 'Token 格式不对，应该是 ghp_ 开头';
-    err.style.display = 'block';
-    return;
-  }
-  // 验证 Token
-  err.style.display = 'none';
-  try {
-    const res = await fetch(`${API_BASE}/user`, {
-      headers: {'Authorization': `token ${val}`, 'Accept': 'application/vnd.github.v3+json'}
-    });
-    if (!res.ok) { err.textContent = 'Token 无效，请重新生成'; err.style.display='block'; return; }
-  } catch(e) {
-    err.textContent = '网络错误，请重试'; err.style.display='block'; return;
-  }
-  localStorage.setItem(TOKEN_KEY, val);
-  GITHUB_TOKEN = val;
-  document.getElementById('token-overlay').style.display = 'none';
-  document.getElementById('login-overlay').style.display = 'flex';
-}
-
-// ===== GitHub API =====
+// GitHub API
 async function ghGet(path) {
   const res = await fetch(`${API_BASE}/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`, {
     headers: {'Authorization': `token ${GITHUB_TOKEN}`, 'Accept': 'application/vnd.github.v3+json'}
   });
   if (res.status === 404) return null;
-  if (res.status === 401) { localStorage.removeItem(TOKEN_KEY); location.reload(); }
+  if (res.status === 401) {
+    localStorage.removeItem(TOKEN_KEY);
+    GITHUB_TOKEN = '';
+    document.getElementById('token-section').style.display = 'block';
+    throw new Error('Token 失效，请重新填写 Token 并登录');
+  }
   if (!res.ok) throw new Error('读取失败 ' + res.status);
   return res.json();
 }
@@ -396,8 +383,7 @@ async function loadData() {
     if (!file) { records = []; fileSHA = null; }
     else {
       fileSHA = file.sha;
-      const decoded = decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))));
-      records = JSON.parse(decoded).records || [];
+      records = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))))).records || [];
     }
     showStatus('', '');
     updateCounters();
@@ -408,8 +394,7 @@ async function loadData() {
 }
 
 async function saveData() {
-  const payload = JSON.stringify({records}, null, 2);
-  const result = await ghPut(DATA_FILE, payload, fileSHA);
+  const result = await ghPut(DATA_FILE, JSON.stringify({records}, null, 2), fileSHA);
   fileSHA = result.content.sha;
 }
 
@@ -420,17 +405,52 @@ function showStatus(msg, type) {
   el.className = 'status-bar show ' + type;
 }
 
-// ===== 登录 =====
-function doLogin() {
+// 登录
+async function doLogin() {
   const name = document.getElementById('l-name').value;
   const pw   = document.getElementById('l-pw').value.trim();
   const err  = document.getElementById('l-err');
+  const btn  = document.getElementById('login-btn');
+
   if (!name) { err.textContent='请先选择姓名'; err.style.display='block'; return; }
   const m = MEMBERS[name];
   if (!m || pw !== m.pw) { err.textContent='姓名或密码错误'; err.style.display='block'; return; }
-  err.style.display='none';
+
+  // 如果没有存 Token，检查是否填了
+  if (!GITHUB_TOKEN) {
+    const tokenVal = document.getElementById('l-token').value.trim();
+    if (!tokenVal) { err.textContent='请填写 GitHub Token'; err.style.display='block'; return; }
+    if (!tokenVal.startsWith('ghp_')) { err.textContent='Token 格式不对，应该是 ghp_ 开头'; err.style.display='block'; return; }
+    // 验证 Token
+    btn.disabled = true;
+    btn.textContent = '验证中…';
+    try {
+      const res = await fetch(`${API_BASE}/user`, {
+        headers: {'Authorization': `token ${tokenVal}`, 'Accept': 'application/vnd.github.v3+json'}
+      });
+      if (!res.ok) {
+        err.textContent = 'Token 无效，请重新生成一个';
+        err.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = '登录 →';
+        return;
+      }
+      localStorage.setItem(TOKEN_KEY, tokenVal);
+      GITHUB_TOKEN = tokenVal;
+    } catch(e) {
+      err.textContent = '网络错误，请重试';
+      err.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = '登录 →';
+      return;
+    }
+    btn.disabled = false;
+    btn.textContent = '登录 →';
+  }
+
+  err.style.display = 'none';
   currentUser = {name, ...m};
-  document.getElementById('login-overlay').style.display = 'none';
+  document.getElementById('login-page').style.display = 'none';
   document.getElementById('app-page').style.display = 'block';
   document.getElementById('top-name').textContent = name;
   document.getElementById('top-role').textContent = m.admin ? '联络员（管理员）' : (m.seat ? '座位 '+m.seat : 'IT运维 · 非北京base');
@@ -445,14 +465,13 @@ function doLogout() {
   currentUser = null; records = []; fileSHA = null;
   pendingPhotos = {box:[], asset:[]};
   document.getElementById('app-page').style.display = 'none';
-  document.getElementById('login-overlay').style.display = 'flex';
+  document.getElementById('login-page').style.display = 'flex';
   document.getElementById('l-name').value = '';
   document.getElementById('l-pw').value = '';
   document.getElementById('box-preview').innerHTML = '';
   document.getElementById('asset-preview').innerHTML = '';
 }
 
-// ===== 表单 =====
 function setType(t) {
   curType = t;
   document.getElementById('form-box').style.display   = t==='box' ? '' : 'none';
@@ -460,6 +479,7 @@ function setType(t) {
   document.getElementById('tbtn-box').className   = 'type-btn' + (t==='box' ? ' ab' : '');
   document.getElementById('tbtn-asset').className = 'type-btn' + (t==='asset' ? ' aa' : '');
 }
+
 function setSt(s) {
   curSt = s;
   document.getElementById('st-office').className  = 'st-btn' + (s==='office' ? ' on' : '');
@@ -470,7 +490,6 @@ function setSt(s) {
   else{sw.style.opacity='1';si.value=currentUser.seat||'（无固定座位）';}
 }
 
-// ===== 照片 =====
 function handlePhotos(kind, input) {
   Array.from(input.files).forEach(file => {
     if(!file.type.startsWith('image/')) return;
@@ -490,7 +509,6 @@ function handlePhotos(kind, input) {
 }
 function removePhoto(kind, idx, el) { pendingPhotos[kind][idx]=null; el.remove(); }
 
-// ===== 添加记录 =====
 async function addRecord() {
   if(saving) return;
   const btn = document.getElementById('submit-btn');
@@ -499,7 +517,7 @@ async function addRecord() {
   try {
     const file = await ghGet(DATA_FILE);
     if(file) { fileSHA=file.sha; records=JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))))).records||[]; }
-  } catch(e) {}
+  } catch(e) { showStatus(e.message,'err'); btn.disabled=false; return; }
 
   const nextNum = records.length > 0 ? Math.max(...records.map(r=>parseInt(r.num.replace('SJ-',''))||0))+1 : 1;
   const photos = (pendingPhotos[curType]||[]).filter(Boolean);
@@ -532,7 +550,6 @@ async function addRecord() {
   saving=false; btn.disabled=false;
 }
 
-// ===== 删除 =====
 async function deleteRecord(id) {
   const rec=records.find(r=>r.id===id);
   if(!rec) return;
