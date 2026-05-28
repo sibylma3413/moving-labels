@@ -111,22 +111,6 @@
       "seat": "36",
       "detail": "电脑主机 · 40",
       "note": ""
-    },
-    {
-      "id": 1779955777980,
-      "num": "SJ-8",
-      "type": "asset",
-      "owner": "韩雄健",
-      "dept": "信息数据部",
-      "name": "韩雄健",
-      "ts": "2026/5/28 16:09:37",
-      "photos": [],
-      "storage": "office",
-      "item": "桌子",
-      "floor": "40",
-      "seat": "36",
-      "detail": "桌子 · 40",
-      "note": ""
     }
   ]
 }
