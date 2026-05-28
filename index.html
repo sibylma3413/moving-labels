@@ -3,104 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>信息数据部 · 搬迁标签登记系统</title>
+<title>信息数据部 · 搬迁标签登记</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:#f5f5f3;color:#1a1a1a;font-size:14px;line-height:1.6}
-a{color:inherit;text-decoration:none}
-input,select,textarea,button{font-family:inherit;font-size:14px}
-input,select{height:38px;padding:0 10px;border:1px solid #ddd;border-radius:8px;width:100%;outline:none;background:#fff;color:#1a1a1a;transition:border-color .15s}
+input,select,button{font-family:inherit;font-size:14px}
+input,select{height:38px;padding:0 10px;border:1px solid #ddd;border-radius:8px;width:100%;outline:none;background:#fff;transition:border-color .15s}
 input:focus,select:focus{border-color:#378ADD}
-button{cursor:pointer;border-radius:8px;border:1px solid #ddd;background:#fff;color:#1a1a1a;padding:0 16px;height:38px;transition:all .15s}
+button{cursor:pointer;border-radius:8px;border:1px solid #ddd;background:#fff;padding:0 16px;height:38px;transition:all .15s}
 button:hover{background:#f0f0ee}
-button:active{transform:scale(.98)}
 
-/* layout */
-.page{max-width:780px;margin:0 auto;padding:24px 16px 60px}
-.card{background:#fff;border:1px solid #e8e8e6;border-radius:14px;padding:20px;margin-bottom:16px}
-.card-title{font-size:15px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px;color:#1a1a1a}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.full{grid-column:1/-1}
-.field{display:flex;flex-direction:column;gap:4px}
-.field label{font-size:12px;color:#666;font-weight:500}
-
-/* topbar */
 .topbar{background:#fff;border-bottom:1px solid #e8e8e6;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.topbar-left{display:flex;align-items:center;gap:10px}
-.logo{font-size:15px;font-weight:700;color:#1a1a1a}
-.logo span{color:#378ADD}
+.logo{font-size:15px;font-weight:700}.logo span{color:#378ADD}
 .user-pill{display:flex;align-items:center;gap:8px;background:#f5f5f3;border-radius:20px;padding:5px 12px 5px 6px}
 .avatar{width:28px;height:28px;border-radius:50%;background:#E6F1FB;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#185FA5;flex-shrink:0}
 .user-name{font-size:13px;font-weight:500}
 .user-role{font-size:11px;color:#888}
-.logout-btn{font-size:12px;padding:0 10px;height:30px;color:#888;border-color:#e0e0e0}
+.logout-btn{font-size:12px;padding:0 10px;height:30px;color:#888}
 
-/* metrics */
+.page{max-width:780px;margin:0 auto;padding:24px 16px 60px}
+.card{background:#fff;border:1px solid #e8e8e6;border-radius:14px;padding:20px;margin-bottom:16px}
+.card-title{font-size:15px;font-weight:600;margin-bottom:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.full{grid-column:1/-1}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:12px;color:#666;font-weight:500}
+
 .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
 .metric{background:#fff;border:1px solid #e8e8e6;border-radius:10px;padding:12px 14px}
 .metric-label{font-size:11px;color:#888;margin-bottom:4px}
-.metric-value{font-size:22px;font-weight:700;color:#1a1a1a}
+.metric-value{font-size:22px;font-weight:700}
 
-/* type toggle */
 .type-toggle{display:flex;gap:8px;margin-bottom:16px}
 .type-btn{flex:1;height:42px;font-size:13px;font-weight:500;border-radius:10px}
-.type-btn.active-box{border-color:#185FA5;background:#E6F1FB;color:#0C447C}
-.type-btn.active-asset{border-color:#0F6E56;background:#E1F5EE;color:#085041}
-
-/* storage toggle */
+.type-btn.ab{border-color:#185FA5;background:#E6F1FB;color:#0C447C}
+.type-btn.aa{border-color:#0F6E56;background:#E1F5EE;color:#085041}
 .st-toggle{display:flex;gap:8px}
 .st-btn{flex:1;height:36px;font-size:13px;border-radius:8px}
-.st-btn.active{border-color:#185FA5;background:#E6F1FB;color:#0C447C;font-weight:500}
+.st-btn.on{border-color:#185FA5;background:#E6F1FB;color:#0C447C;font-weight:500}
 
-/* submit */
 .submit-btn{width:100%;height:44px;margin-top:14px;font-size:14px;font-weight:600;background:#1a1a1a;color:#fff;border-color:#1a1a1a;border-radius:10px}
 .submit-btn:hover{background:#333}
+.submit-btn:disabled{background:#999;border-color:#999;cursor:not-allowed}
 
-/* photo upload */
-.photo-upload-area{border:1.5px dashed #ccc;border-radius:10px;padding:16px;text-align:center;cursor:pointer;transition:border-color .15s;background:#fafaf9;position:relative;overflow:hidden}
+.photo-upload-area{border:1.5px dashed #ccc;border-radius:10px;padding:16px;text-align:center;cursor:pointer;background:#fafaf9;position:relative}
 .photo-upload-area:hover{border-color:#378ADD}
 .photo-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.photo-upload-label{font-size:12px;color:#888;pointer-events:none}
-.photo-upload-label span{display:block;font-size:20px;margin-bottom:4px}
+.photo-label{font-size:12px;color:#888;pointer-events:none}
 .photo-previews{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.photo-thumb{position:relative;width:72px;height:72px;border-radius:8px;overflow:hidden;border:1px solid #e0e0e0;flex-shrink:0}
+.photo-thumb{position:relative;width:72px;height:72px;border-radius:8px;overflow:hidden;border:1px solid #e0e0e0}
 .photo-thumb img{width:100%;height:100%;object-fit:cover}
-.photo-thumb .del-photo{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;padding:0}
+.del-photo{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;padding:0;height:18px}
 
-/* table */
 .tbl-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .tbl-title{font-size:15px;font-weight:600}
 .tbl-actions{display:flex;gap:8px}
 .action-btn{font-size:12px;padding:0 10px;height:32px;color:#555;display:flex;align-items:center;gap:4px}
 .filter-row{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
 .filter-btn{font-size:12px;padding:0 12px;height:30px;border-radius:20px}
-.filter-btn.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.filter-btn.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
 .tbl-wrap{overflow-x:auto;border:1px solid #e8e8e6;border-radius:12px}
 table{width:100%;border-collapse:collapse;font-size:12px}
 th{background:#f8f8f6;color:#666;font-weight:600;padding:9px 10px;text-align:left;border-bottom:1px solid #e8e8e6;white-space:nowrap}
-td{padding:8px 10px;border-bottom:1px solid #f0f0ee;color:#1a1a1a;vertical-align:middle}
+td{padding:8px 10px;border-bottom:1px solid #f0f0ee;vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#fafaf9}
-.num-badge{font-family:'SF Mono',Monaco,Consolas,monospace;font-size:12px;font-weight:700;color:#1a1a1a}
+.num-mono{font-family:monospace;font-size:12px;font-weight:700}
 .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;white-space:nowrap}
 .b-box{background:#E6F1FB;color:#0C447C}
 .b-asset{background:#E1F5EE;color:#085041}
 .b-office{background:#FAEEDA;color:#633806}
 .b-storage{background:#F1EFE8;color:#5F5E5A}
 .b-admin{background:#EEEDFE;color:#3C3489;font-size:10px}
-.del-btn{background:none;border:none;color:#ccc;padding:4px 6px;height:auto;border-radius:6px}
+.del-btn{background:none;border:none;color:#ccc;padding:4px 6px;height:auto;border-radius:6px;cursor:pointer}
 .del-btn:hover{background:#FCEBEB;color:#A32D2D}
-.photo-count{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:#888;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
-.photo-count:hover{color:#378ADD}
+.photo-link{font-size:11px;color:#888;cursor:pointer;text-decoration:underline}
+.photo-link:hover{color:#378ADD}
 .empty-state{text-align:center;padding:32px;color:#aaa;font-size:13px}
+.tip{font-size:11px;color:#999;margin-top:6px;padding:6px 10px;background:#f8f8f6;border-radius:6px}
 
-/* login */
 .login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f5f3;padding:24px}
 .login-card{background:#fff;border:1px solid #e8e8e6;border-radius:16px;padding:36px 32px;width:100%;max-width:360px}
-.login-logo{text-align:center;margin-bottom:24px}
-.login-logo .title{font-size:20px;font-weight:700;color:#1a1a1a;margin-bottom:4px}
-.login-logo .sub{font-size:13px;color:#888}
+.login-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:4px}
+.login-sub{font-size:13px;color:#888;text-align:center;margin-bottom:24px}
 .login-field{margin-bottom:14px}
 .login-field label{display:block;font-size:12px;font-weight:500;color:#555;margin-bottom:5px}
 .login-btn{width:100%;height:44px;background:#1a1a1a;color:#fff;border-color:#1a1a1a;font-size:14px;font-weight:600;border-radius:10px;margin-top:6px}
@@ -108,24 +93,21 @@ tr:hover td{background:#fafaf9}
 .login-hint{font-size:11px;color:#aaa;text-align:center;margin-top:14px;line-height:1.6}
 .login-err{font-size:12px;color:#c0392b;text-align:center;margin-top:8px;background:#FCEBEB;padding:6px 10px;border-radius:6px}
 
-/* modal (lightbox) */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;align-items:center;justify-content:center;padding:20px}
-.modal-bg.open{display:flex}
-.modal{background:#fff;border-radius:14px;padding:20px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto}
+.status-bar{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:8px 12px;font-size:12px;color:#856404;margin-bottom:12px;display:none}
+.status-bar.show{display:block}
+.status-bar.err{background:#FCEBEB;border-color:#f5c6cb;color:#721c24}
+.status-bar.ok{background:#d4edda;border-color:#c3e6cb;color:#155724}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:14px;padding:20px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto}
 .modal-title{font-size:15px;font-weight:600;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
-.modal-close{background:none;border:none;font-size:22px;color:#aaa;padding:0;height:auto;line-height:1}
-.modal-close:hover{color:#333}
+.modal-close{background:none;border:none;font-size:22px;color:#aaa;padding:0;height:auto;cursor:pointer}
 .modal-photos{display:flex;flex-wrap:wrap;gap:10px}
-.modal-photo{border-radius:10px;overflow:hidden;border:1px solid #e0e0e0;cursor:pointer}
-.modal-photo img{width:180px;height:180px;object-fit:cover;display:block}
-.modal-photo:hover img{opacity:.9}
+.modal-photo img{width:160px;height:160px;object-fit:cover;border-radius:10px;border:1px solid #e0e0e0;cursor:pointer;display:block}
 
-/* info tip */
-.tip{font-size:11px;color:#999;margin-top:6px;line-height:1.5;padding:6px 10px;background:#f8f8f6;border-radius:6px}
-
-/* responsive */
 @media(max-width:540px){
-  .grid2,.grid3{grid-template-columns:1fr}
+  .grid2{grid-template-columns:1fr}
   .full{grid-column:1}
   .metrics{grid-template-columns:1fr 1fr}
   .topbar{padding:10px 14px}
@@ -135,13 +117,22 @@ tr:hover td{background:#fafaf9}
 </head>
 <body>
 
+<!-- ===== CONFIG ===== -->
+<script>
+// ⚠️ 把下面的 YOUR_GITHUB_TOKEN 替换成你自己的 Token
+// ⚠️ 把 YOUR_USERNAME 替换成你的 GitHub 用户名（sibylma3413）
+const GITHUB_TOKEN = 'YOUR_GITHUB_TOKEN';
+const GITHUB_OWNER = 'sibylma3413';
+const GITHUB_REPO  = 'moving-labels';
+const DATA_FILE    = 'data.json';
+const API_BASE     = 'https://api.github.com';
+</script>
+
 <!-- ===== LOGIN ===== -->
 <div id="login-page" class="login-page">
   <div class="login-card">
-    <div class="login-logo">
-      <div class="title">📦 搬迁标签登记</div>
-      <div class="sub">信息数据部 · 北京办公室搬迁</div>
-    </div>
+    <div class="login-title">📦 搬迁标签登记</div>
+    <div class="login-sub">信息数据部 · 北京办公室搬迁</div>
     <div class="login-field">
       <label>姓名</label>
       <select id="l-name">
@@ -155,18 +146,16 @@ tr:hover td{background:#fafaf9}
       <label>密码</label>
       <input type="password" id="l-pw" placeholder="jwms.首字母" autocomplete="current-password">
     </div>
-    <div id="l-err" style="display:none" class="login-err">姓名或密码错误，请重试</div>
+    <div id="l-err" style="display:none" class="login-err"></div>
     <button class="login-btn" onclick="doLogin()">登录 →</button>
     <div class="login-hint">密码格式：jwms.姓名拼音首字母<br>如马小清 → jwms.mxq &nbsp;|&nbsp; 张旭博 → jwms.zxb</div>
   </div>
 </div>
 
-<!-- ===== MAIN APP ===== -->
+<!-- ===== APP ===== -->
 <div id="app-page" style="display:none">
   <div class="topbar">
-    <div class="topbar-left">
-      <div class="logo">信息数据部 <span>搬迁标签</span></div>
-    </div>
+    <div class="logo">信息数据部 <span>搬迁标签</span></div>
     <div style="display:flex;align-items:center;gap:10px">
       <div class="user-pill">
         <div class="avatar" id="top-avatar"></div>
@@ -180,28 +169,27 @@ tr:hover td{background:#fafaf9}
   </div>
 
   <div class="page">
+    <div class="status-bar" id="status-bar"></div>
+
     <div class="metrics">
       <div class="metric"><div class="metric-label">总记录</div><div class="metric-value" id="cnt-all">0</div></div>
       <div class="metric"><div class="metric-label">箱子标签</div><div class="metric-value" id="cnt-box">0</div></div>
       <div class="metric"><div class="metric-label">固定资产</div><div class="metric-value" id="cnt-asset">0</div></div>
     </div>
 
-    <!-- ADD FORM -->
     <div class="card">
       <div class="card-title">➕ 添加标签记录</div>
-
       <div class="type-toggle">
-        <button class="type-btn active-box" id="tbtn-box" onclick="setType('box')">📦 标签1：箱子</button>
+        <button class="type-btn ab" id="tbtn-box" onclick="setType('box')">📦 标签1：箱子</button>
         <button class="type-btn" id="tbtn-asset" onclick="setType('asset')">🖥 标签2：固定资产</button>
       </div>
 
-      <!-- BOX FORM -->
       <div id="form-box">
         <div class="grid2" style="margin-bottom:12px">
           <div class="field">
             <label>存放位置</label>
             <div class="st-toggle">
-              <button class="st-btn active" id="st-office" onclick="setSt('office')">办公区</button>
+              <button class="st-btn on" id="st-office" onclick="setSt('office')">办公区</button>
               <button class="st-btn" id="st-storage" onclick="setSt('storage')">仓储区</button>
             </div>
           </div>
@@ -211,23 +199,20 @@ tr:hover td{background:#fafaf9}
           </div>
           <div class="field full">
             <label>备注（选填）</label>
-            <input type="text" id="b-note" placeholder="如：财务文件、个人书籍、办公用品…">
+            <input type="text" id="b-note" placeholder="如：财务文件、个人书籍…">
           </div>
         </div>
-        <div class="tip">📌 对应箱子上的 A4 纸贴纸。姓名、部门由登录信息自动填入；仓储区箱子不写座位号。</div>
-
-        <!-- PHOTO -->
+        <div class="tip">📌 对应箱子上的 A4 纸贴纸。姓名、部门由登录信息自动填入；仓储区箱子不填座位号。</div>
         <div class="field" style="margin-top:12px">
           <label>拍照上传标签（选填）</label>
-          <div class="photo-upload-area" id="box-upload-area">
+          <div class="photo-upload-area">
             <input type="file" accept="image/*" multiple capture="environment" id="box-photos-input" onchange="handlePhotos('box',this)">
-            <div class="photo-upload-label"><span>📷</span>点击拍照或选择图片<br><small style="font-size:11px;color:#bbb">可多选，支持直接拍摄</small></div>
+            <div class="photo-label">📷 点击拍照或选择图片（可多选）</div>
           </div>
           <div class="photo-previews" id="box-preview"></div>
         </div>
       </div>
 
-      <!-- ASSET FORM -->
       <div id="form-asset" style="display:none">
         <div class="grid2" style="margin-bottom:12px">
           <div class="field">
@@ -247,40 +232,37 @@ tr:hover td{background:#fafaf9}
             </select>
           </div>
           <div class="field">
-            <label>搬入座位号（新座位）</label>
-            <input type="text" id="a-seat" placeholder="如 A-01">
+            <label>搬入座位号</label>
+            <input type="text" id="a-seat" placeholder="新座位号">
           </div>
           <div class="field">
             <label>备注（选填）</label>
-            <input type="text" id="a-note" placeholder="如：27寸、黑色、3屉…">
+            <input type="text" id="a-note" placeholder="如：27寸、黑色…">
           </div>
         </div>
-        <div class="tip">📌 对应蚂蚁搬家的搬迁专用标识贴。填写显示器、桌子、个人抽屉、边柜等固定资产。</div>
-
-        <!-- PHOTO -->
+        <div class="tip">📌 对应蚂蚁搬家贴纸。填写显示器、桌子、个人抽屉、边柜等固定资产。</div>
         <div class="field" style="margin-top:12px">
           <label>拍照上传标签（选填）</label>
-          <div class="photo-upload-area" id="asset-upload-area">
+          <div class="photo-upload-area">
             <input type="file" accept="image/*" multiple capture="environment" id="asset-photos-input" onchange="handlePhotos('asset',this)">
-            <div class="photo-upload-label"><span>📷</span>点击拍照或选择图片<br><small style="font-size:11px;color:#bbb">可多选，支持直接拍摄</small></div>
+            <div class="photo-label">📷 点击拍照或选择图片（可多选）</div>
           </div>
           <div class="photo-previews" id="asset-preview"></div>
         </div>
       </div>
 
-      <button class="submit-btn" onclick="addRecord()">✓ 提交并生成编号</button>
+      <button class="submit-btn" id="submit-btn" onclick="addRecord()">✓ 提交并生成编号</button>
     </div>
 
-    <!-- TABLE -->
     <div class="tbl-header">
       <div class="tbl-title">已登记记录</div>
       <div class="tbl-actions">
         <button class="action-btn" onclick="exportCSV()">⬇ 导出CSV</button>
-        <button class="action-btn" id="clear-btn" style="display:none;color:#c0392b" onclick="clearAll()">🗑 清空全部</button>
+        <button class="action-btn" id="clear-btn" style="display:none;color:#c0392b" onclick="clearAll()">🗑 清空</button>
       </div>
     </div>
     <div class="filter-row">
-      <button class="filter-btn active" onclick="setFilter(this,'all')">全部</button>
+      <button class="filter-btn on" onclick="setFilter(this,'all')">全部</button>
       <button class="filter-btn" onclick="setFilter(this,'box')">箱子标签</button>
       <button class="filter-btn" onclick="setFilter(this,'asset')">固定资产</button>
       <button class="filter-btn" onclick="setFilter(this,'mine')">我的记录</button>
@@ -306,7 +288,7 @@ tr:hover td{background:#fafaf9}
 </div>
 
 <!-- PHOTO MODAL -->
-<div class="modal-bg" id="photo-modal" onclick="closeModal(event)">
+<div class="modal-overlay" id="photo-modal" onclick="closeModal(event)">
   <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-title">
       <span id="modal-title-text">标签照片</span>
@@ -317,6 +299,7 @@ tr:hover td{background:#fafaf9}
 </div>
 
 <script>
+// ===== 成员配置 =====
 const MEMBERS = {
   '石泽宇': {pw:'jwms.szy', seat:'40', initials:'石泽', admin:false},
   '段宝莲': {pw:'jwms.dbl', seat:'35', initials:'段宝', admin:false},
@@ -328,57 +311,109 @@ const MEMBERS = {
   '张建业': {pw:'jwms.zjy', seat:'37', initials:'张建', admin:false},
 };
 
-const STORE_RECORDS = 'mj_records_v2';
-const STORE_NUM     = 'mj_nextnum_v2';
-
 let currentUser = null;
 let records = [];
-let nextNum = 1;
+let fileSHA = null;
 let curType = 'box';
-let curSt   = 'office';
+let curSt = 'office';
 let curFilter = 'all';
 let pendingPhotos = {box:[], asset:[]};
+let saving = false;
 
-function load() {
-  try { records = JSON.parse(localStorage.getItem(STORE_RECORDS)||'[]'); } catch(e){ records=[]; }
-  try { nextNum = parseInt(localStorage.getItem(STORE_NUM)||'1')||1; } catch(e){ nextNum=1; }
-}
-function save() {
-  localStorage.setItem(STORE_RECORDS, JSON.stringify(records));
-  localStorage.setItem(STORE_NUM, String(nextNum));
+// ===== GitHub API =====
+async function ghGet(path) {
+  const res = await fetch(`${API_BASE}/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`, {
+    headers: {
+      'Authorization': `token ${GITHUB_TOKEN}`,
+      'Accept': 'application/vnd.github.v3+json'
+    }
+  });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error('读取失败 ' + res.status);
+  return res.json();
 }
 
-// LOGIN
+async function ghPut(path, content, sha) {
+  const body = {
+    message: '更新标签数据',
+    content: btoa(unescape(encodeURIComponent(content))),
+  };
+  if (sha) body.sha = sha;
+  const res = await fetch(`${API_BASE}/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `token ${GITHUB_TOKEN}`,
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) throw new Error('保存失败 ' + res.status);
+  return res.json();
+}
+
+async function loadData() {
+  showStatus('正在加载数据…', 'loading');
+  try {
+    const file = await ghGet(DATA_FILE);
+    if (!file) {
+      records = [];
+      fileSHA = null;
+    } else {
+      fileSHA = file.sha;
+      const decoded = decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))));
+      const parsed = JSON.parse(decoded);
+      records = parsed.records || [];
+    }
+    showStatus('', '');
+    updateCounters();
+    renderTable();
+  } catch(e) {
+    showStatus('加载数据失败：' + e.message, 'err');
+  }
+}
+
+async function saveData() {
+  const nextNum = records.length > 0 ? Math.max(...records.map(r => parseInt(r.num.replace('SJ-',''))||0)) + 1 : 1;
+  const payload = JSON.stringify({records, nextNum}, null, 2);
+  try {
+    const result = await ghPut(DATA_FILE, payload, fileSHA);
+    fileSHA = result.content.sha;
+  } catch(e) {
+    throw e;
+  }
+}
+
+function showStatus(msg, type) {
+  const el = document.getElementById('status-bar');
+  if (!msg) { el.className='status-bar'; return; }
+  el.textContent = msg;
+  el.className = 'status-bar show' + (type==='err' ? ' err' : type==='ok' ? ' ok' : '');
+}
+
+// ===== 登录 =====
 function doLogin() {
   const name = document.getElementById('l-name').value;
   const pw   = document.getElementById('l-pw').value.trim();
   const err  = document.getElementById('l-err');
   if (!name) { err.textContent='请先选择姓名'; err.style.display='block'; return; }
   const m = MEMBERS[name];
-  if (!m || pw !== m.pw) { err.style.display='block'; return; }
+  if (!m || pw !== m.pw) { err.textContent='姓名或密码错误'; err.style.display='block'; return; }
   err.style.display='none';
   currentUser = {name, ...m};
-  load();
-  showApp();
-}
-document.getElementById('l-pw').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
-
-function showApp() {
   document.getElementById('login-page').style.display='none';
   document.getElementById('app-page').style.display='block';
-  document.getElementById('top-name').textContent = currentUser.name;
-  document.getElementById('top-role').textContent = currentUser.admin
-    ? '联络员（管理员）'
-    : (currentUser.seat ? '座位 ' + currentUser.seat : 'IT运维 · 非北京base');
-  document.getElementById('top-avatar').textContent = currentUser.initials;
-  document.getElementById('clear-btn').style.display = currentUser.admin ? 'flex' : 'none';
-  document.getElementById('b-seat').value = currentUser.seat || '（无固定座位）';
-  updateCounters();
-  renderTable();
+  document.getElementById('top-name').textContent = name;
+  document.getElementById('top-role').textContent = m.admin ? '联络员（管理员）' : (m.seat ? '座位 '+m.seat : 'IT运维 · 非北京base');
+  document.getElementById('top-avatar').textContent = m.initials;
+  document.getElementById('clear-btn').style.display = m.admin ? 'flex' : 'none';
+  document.getElementById('b-seat').value = m.seat || '（无固定座位）';
+  loadData();
 }
+document.getElementById('l-pw').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
 
 function doLogout() {
-  currentUser = null;
+  currentUser = null; records = []; fileSHA = null;
   pendingPhotos = {box:[], asset:[]};
   document.getElementById('app-page').style.display='none';
   document.getElementById('login-page').style.display='flex';
@@ -386,42 +421,39 @@ function doLogout() {
   document.getElementById('l-pw').value='';
   document.getElementById('box-preview').innerHTML='';
   document.getElementById('asset-preview').innerHTML='';
-  curFilter='all'; curType='box'; curSt='office';
 }
 
-// TYPE & STORAGE
+// ===== 表单控制 =====
 function setType(t) {
   curType = t;
   document.getElementById('form-box').style.display   = t==='box' ? '' : 'none';
   document.getElementById('form-asset').style.display = t==='asset' ? '' : 'none';
-  document.getElementById('tbtn-box').className   = 'type-btn' + (t==='box' ? ' active-box' : '');
-  document.getElementById('tbtn-asset').className = 'type-btn' + (t==='asset' ? ' active-asset' : '');
+  document.getElementById('tbtn-box').className   = 'type-btn' + (t==='box' ? ' ab' : '');
+  document.getElementById('tbtn-asset').className = 'type-btn' + (t==='asset' ? ' aa' : '');
 }
 function setSt(s) {
   curSt = s;
-  document.getElementById('st-office').className  = 'st-btn' + (s==='office' ? ' active' : '');
-  document.getElementById('st-storage').className = 'st-btn' + (s==='storage' ? ' active' : '');
+  document.getElementById('st-office').className  = 'st-btn' + (s==='office' ? ' on' : '');
+  document.getElementById('st-storage').className = 'st-btn' + (s==='storage' ? ' on' : '');
   const sw = document.getElementById('seat-wrap');
   const si = document.getElementById('b-seat');
-  if (s==='storage') { sw.style.opacity='0.4'; si.value='（仓储不填）'; }
-  else               { sw.style.opacity='1';   si.value=currentUser.seat||'（无固定座位）'; }
+  if(s==='storage'){sw.style.opacity='0.4';si.value='（仓储不填）';}
+  else{sw.style.opacity='1';si.value=currentUser.seat||'（无固定座位）';}
 }
 
-// PHOTOS
+// ===== 照片 =====
 function handlePhotos(kind, input) {
-  const files = Array.from(input.files);
-  const previewEl = document.getElementById(kind+'-preview');
-  files.forEach(file=>{
-    if (!file.type.startsWith('image/')) return;
+  Array.from(input.files).forEach(file => {
+    if(!file.type.startsWith('image/')) return;
     const reader = new FileReader();
-    reader.onload = e=>{
-      const dataUrl = e.target.result;
+    reader.onload = e => {
       const idx = pendingPhotos[kind].length;
-      pendingPhotos[kind].push(dataUrl);
+      pendingPhotos[kind].push(e.target.result);
+      const wrap = document.getElementById(kind+'-preview');
       const thumb = document.createElement('div');
-      thumb.className='photo-thumb';
-      thumb.innerHTML=`<img src="${dataUrl}" alt="标签照片"><button class="del-photo" onclick="removePhoto('${kind}',${idx},this.parentNode)">×</button>`;
-      previewEl.appendChild(thumb);
+      thumb.className = 'photo-thumb';
+      thumb.innerHTML = `<img src="${e.target.result}"><button class="del-photo" onclick="removePhoto('${kind}',${idx},this.parentNode)">×</button>`;
+      wrap.appendChild(thumb);
     };
     reader.readAsDataURL(file);
   });
@@ -432,162 +464,180 @@ function removePhoto(kind, idx, el) {
   el.remove();
 }
 
-// ADD RECORD
-function addRecord() {
+// ===== 添加记录 =====
+async function addRecord() {
+  if(saving) return;
+  const btn = document.getElementById('submit-btn');
+
+  // 先刷新拿最新数据，防止编号冲突
+  showStatus('正在同步最新数据…', 'loading');
+  btn.disabled = true;
+  try {
+    const file = await ghGet(DATA_FILE);
+    if(file) {
+      fileSHA = file.sha;
+      const decoded = decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))));
+      const parsed = JSON.parse(decoded);
+      records = parsed.records || [];
+    }
+  } catch(e) {}
+
+  const nextNum = records.length > 0 ? Math.max(...records.map(r => parseInt(r.num.replace('SJ-',''))||0)) + 1 : 1;
+  const photos = (pendingPhotos[curType]||[]).filter(Boolean);
+
   const rec = {
     id: Date.now(),
-    num: 'SJ-'+nextNum,
+    num: 'SJ-' + nextNum,
     type: curType,
     owner: currentUser.name,
     dept: '信息数据部',
     name: currentUser.name,
-    ts: new Date().toLocaleString('zh-CN',{hour12:false})
+    ts: new Date().toLocaleString('zh-CN',{hour12:false}),
+    photos
   };
 
-  const photos = (pendingPhotos[curType]||[]).filter(Boolean);
-
-  if (curType==='box') {
+  if(curType==='box') {
     rec.storage = curSt;
     rec.seat    = curSt==='office' ? (currentUser.seat||'') : '';
     rec.detail  = curSt==='office' ? '座位:'+(currentUser.seat||'—') : '仓储区';
     rec.note    = document.getElementById('b-note').value.trim();
-    rec.photos  = photos;
-    document.getElementById('b-note').value='';
   } else {
     const item  = document.getElementById('a-item').value;
     const floor = document.getElementById('a-floor').value;
-    if (!item)  { alert('请选择物品类型'); return; }
+    if(!item){ showStatus('请选择物品类型','err'); btn.disabled=false; return; }
     rec.storage = 'office';
     rec.item    = item;
     rec.floor   = floor;
     rec.seat    = document.getElementById('a-seat').value.trim();
     rec.detail  = item + (floor ? ' · '+floor : '');
     rec.note    = document.getElementById('a-note').value.trim();
-    rec.photos  = photos;
-    document.getElementById('a-item').value='';
-    document.getElementById('a-floor').value='';
-    document.getElementById('a-seat').value='';
-    document.getElementById('a-note').value='';
   }
 
-  nextNum++;
   records.push(rec);
-  save();
-  pendingPhotos[curType]=[];
-  document.getElementById(curType+'-preview').innerHTML='';
-  updateCounters();
-  renderTable();
+  saving = true;
+  showStatus('正在保存…', 'loading');
+  try {
+    await saveData();
+    showStatus('✓ 已保存，编号 ' + rec.num, 'ok');
+    // 清空表单
+    if(curType==='box'){ document.getElementById('b-note').value=''; }
+    else {
+      document.getElementById('a-item').value='';
+      document.getElementById('a-floor').value='';
+      document.getElementById('a-seat').value='';
+      document.getElementById('a-note').value='';
+    }
+    pendingPhotos[curType]=[];
+    document.getElementById(curType+'-preview').innerHTML='';
+    updateCounters();
+    renderTable();
+  } catch(e) {
+    records.pop();
+    showStatus('保存失败：' + e.message, 'err');
+  }
+  saving = false;
+  btn.disabled = false;
 }
 
-// DELETE
-function deleteRecord(id) {
+// ===== 删除 =====
+async function deleteRecord(id) {
   const rec = records.find(r=>r.id===id);
-  if (!rec) return;
-  if (!currentUser.admin && rec.owner!==currentUser.name) { alert('只能删除自己的记录'); return; }
-  if (!confirm('确认删除 '+rec.num+' ？')) return;
+  if(!rec) return;
+  if(!currentUser.admin && rec.owner!==currentUser.name){ alert('只能删除自己的记录'); return; }
+  if(!confirm('确认删除 '+rec.num+' ？')) return;
   records = records.filter(r=>r.id!==id);
-  save();
-  updateCounters();
-  renderTable();
+  showStatus('正在删除…','loading');
+  try {
+    await saveData();
+    showStatus('已删除','ok');
+    updateCounters();
+    renderTable();
+  } catch(e) {
+    showStatus('删除失败：'+e.message,'err');
+  }
 }
 
-function clearAll() {
-  if (!currentUser.admin) return;
-  if (!confirm('确认清空全部 '+records.length+' 条记录？此操作不可恢复！')) return;
-  records=[]; nextNum=1; save(); updateCounters(); renderTable();
+async function clearAll() {
+  if(!currentUser.admin) return;
+  if(!confirm('确认清空全部 '+records.length+' 条记录？')) return;
+  records=[];
+  showStatus('正在清空…','loading');
+  try {
+    await saveData();
+    showStatus('已清空','ok');
+    updateCounters();
+    renderTable();
+  } catch(e) {
+    showStatus('操作失败：'+e.message,'err');
+  }
 }
 
-// FILTER
+// ===== 筛选 =====
 function setFilter(btn, f) {
   curFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
   renderTable();
 }
 
-// COUNTERS
+// ===== 统计 =====
 function updateCounters() {
   document.getElementById('cnt-all').textContent   = records.length;
   document.getElementById('cnt-box').textContent   = records.filter(r=>r.type==='box').length;
   document.getElementById('cnt-asset').textContent = records.filter(r=>r.type==='asset').length;
 }
 
-// RENDER TABLE
+// ===== 渲染表格 =====
 function renderTable() {
   let list = records;
-  if (curFilter==='box')   list = records.filter(r=>r.type==='box');
-  if (curFilter==='asset') list = records.filter(r=>r.type==='asset');
-  if (curFilter==='mine')  list = records.filter(r=>r.owner===currentUser.name);
-
+  if(curFilter==='box')   list=records.filter(r=>r.type==='box');
+  if(curFilter==='asset') list=records.filter(r=>r.type==='asset');
+  if(curFilter==='mine')  list=records.filter(r=>r.owner===currentUser.name);
   const tbody = document.getElementById('tbody');
-  if (!list.length) {
-    tbody.innerHTML='<tr><td colspan="8" class="empty-state">暂无记录，添加后将在此显示</td></tr>';
-    return;
-  }
-  tbody.innerHTML = list.map(r=>{
+  if(!list.length){ tbody.innerHTML='<tr><td colspan="8" class="empty-state">暂无记录</td></tr>'; return; }
+  tbody.innerHTML = list.map(r => {
     const canDel = currentUser.admin || r.owner===currentUser.name;
-    const typeBadge = r.type==='box'
-      ? '<span class="badge b-box">箱子</span>'
-      : '<span class="badge b-asset">资产</span>';
-    const stBadge = (r.storage==='storage')
-      ? '<span class="badge b-storage">仓储</span>'
-      : '<span class="badge b-office">办公</span>';
-    const othMark = (currentUser.admin && r.owner!==currentUser.name)
-      ? ' <span class="badge b-admin">他人</span>' : '';
-    const photosHtml = (r.photos && r.photos.length)
-      ? `<span class="photo-count" onclick="openModal(${r.id})">📷 ${r.photos.length}张</span>`
-      : '<span style="color:#ccc;font-size:11px">—</span>';
-    const delHtml = canDel
-      ? `<button class="del-btn" onclick="deleteRecord(${r.id})" title="删除">✕</button>` : '';
+    const typeBadge = r.type==='box' ? '<span class="badge b-box">箱子</span>' : '<span class="badge b-asset">资产</span>';
+    const stBadge   = r.storage==='storage' ? '<span class="badge b-storage">仓储</span>' : '<span class="badge b-office">办公</span>';
+    const othMark   = (currentUser.admin && r.owner!==currentUser.name) ? ' <span class="badge b-admin">他人</span>' : '';
+    const photosHtml = (r.photos&&r.photos.length) ? `<span class="photo-link" onclick="openModal(${r.id})">📷 ${r.photos.length}张</span>` : '<span style="color:#ccc">—</span>';
+    const delBtn = canDel ? `<button class="del-btn" onclick="deleteRecord(${r.id})">✕</button>` : '';
     return `<tr>
-      <td><span class="num-badge">${r.num}</span></td>
+      <td><span class="num-mono">${r.num}</span></td>
       <td>${typeBadge}</td>
       <td>${stBadge}</td>
       <td>${r.name}${othMark}</td>
       <td title="${r.detail}">${r.detail}</td>
-      <td title="${r.note||''}" style="color:#888">${r.note||'—'}</td>
+      <td style="color:#888" title="${r.note||''}">${r.note||'—'}</td>
       <td>${photosHtml}</td>
-      <td>${delHtml}</td>
+      <td>${delBtn}</td>
     </tr>`;
   }).join('');
 }
 
-// PHOTO MODAL
+// ===== 照片弹窗 =====
 function openModal(id) {
   const rec = records.find(r=>r.id===id);
-  if (!rec || !rec.photos || !rec.photos.length) return;
-  document.getElementById('modal-title-text').textContent = rec.num + ' · ' + rec.name + ' 的标签照片';
-  const cont = document.getElementById('modal-photos');
-  cont.innerHTML = rec.photos.map((p,i)=>
-    `<div class="modal-photo"><img src="${p}" alt="标签照片${i+1}" onclick="openFullImg('${p}')"></div>`
+  if(!rec||!rec.photos||!rec.photos.length) return;
+  document.getElementById('modal-title-text').textContent = rec.num+' · '+rec.name+' 的标签照片';
+  document.getElementById('modal-photos').innerHTML = rec.photos.map(p=>
+    `<div class="modal-photo"><img src="${p}" onclick="window.open('${p}')"></div>`
   ).join('');
   document.getElementById('photo-modal').classList.add('open');
 }
 function closeModal(e) {
-  if (!e || e.target===document.getElementById('photo-modal'))
+  if(!e||e.target===document.getElementById('photo-modal'))
     document.getElementById('photo-modal').classList.remove('open');
 }
-function openFullImg(src) {
-  const w = window.open();
-  w.document.write('<img src="'+src+'" style="max-width:100%;display:block;margin:auto">');
-}
 
-// EXPORT CSV
+// ===== 导出CSV =====
 function exportCSV() {
-  if (!records.length) { alert('暂无数据可导出'); return; }
-  const hdr = '编号,类型,存放,姓名,部门,详情,备注,照片数量,登记时间\n';
-  const rows = records.map(r=>[
-    r.num,
-    r.type==='box'?'箱子标签':'固定资产',
-    r.storage==='storage'?'仓储':'办公',
-    r.name, r.dept, r.detail, r.note||'',
-    (r.photos||[]).length,
-    r.ts||''
-  ].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
-  const blob = new Blob(['\uFEFF'+hdr+rows],{type:'text/csv;charset=utf-8'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href=url; a.download='信息数据部搬迁标签.csv'; a.click();
+  if(!records.length){ alert('暂无数据'); return; }
+  const hdr='编号,类型,存放,姓名,部门,详情,备注,照片数,登记时间\n';
+  const rows=records.map(r=>[r.num,r.type==='box'?'箱子标签':'固定资产',r.storage==='storage'?'仓储':'办公',r.name,r.dept,r.detail,r.note||'',(r.photos||[]).length,r.ts||''].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const blob=new Blob(['\uFEFF'+hdr+rows],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='信息数据部搬迁标签.csv';a.click();
   URL.revokeObjectURL(url);
 }
 </script>
