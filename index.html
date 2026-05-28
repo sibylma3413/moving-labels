@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>信息数据部 · 搬迁标签登记系统</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:#f5f5f3;color:#1a1a1a;font-size:14px;line-height:1.6}
+a{color:inherit;text-decoration:none}
+input,select,textarea,button{font-family:inherit;font-size:14px}
+input,select{height:38px;padding:0 10px;border:1px solid #ddd;border-radius:8px;width:100%;outline:none;background:#fff;color:#1a1a1a;transition:border-color .15s}
+input:focus,select:focus{border-color:#378ADD}
+button{cursor:pointer;border-radius:8px;border:1px solid #ddd;background:#fff;color:#1a1a1a;padding:0 16px;height:38px;transition:all .15s}
+button:hover{background:#f0f0ee}
+button:active{transform:scale(.98)}
+
+/* layout */
+.page{max-width:780px;margin:0 auto;padding:24px 16px 60px}
+.card{background:#fff;border:1px solid #e8e8e6;border-radius:14px;padding:20px;margin-bottom:16px}
+.card-title{font-size:15px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px;color:#1a1a1a}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.full{grid-column:1/-1}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:12px;color:#666;font-weight:500}
+
+/* topbar */
+.topbar{background:#fff;border-bottom:1px solid #e8e8e6;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.topbar-left{display:flex;align-items:center;gap:10px}
+.logo{font-size:15px;font-weight:700;color:#1a1a1a}
+.logo span{color:#378ADD}
+.user-pill{display:flex;align-items:center;gap:8px;background:#f5f5f3;border-radius:20px;padding:5px 12px 5px 6px}
+.avatar{width:28px;height:28px;border-radius:50%;background:#E6F1FB;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#185FA5;flex-shrink:0}
+.user-name{font-size:13px;font-weight:500}
+.user-role{font-size:11px;color:#888}
+.logout-btn{font-size:12px;padding:0 10px;height:30px;color:#888;border-color:#e0e0e0}
+
+/* metrics */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.metric{background:#fff;border:1px solid #e8e8e6;border-radius:10px;padding:12px 14px}
+.metric-label{font-size:11px;color:#888;margin-bottom:4px}
+.metric-value{font-size:22px;font-weight:700;color:#1a1a1a}
+
+/* type toggle */
+.type-toggle{display:flex;gap:8px;margin-bottom:16px}
+.type-btn{flex:1;height:42px;font-size:13px;font-weight:500;border-radius:10px}
+.type-btn.active-box{border-color:#185FA5;background:#E6F1FB;color:#0C447C}
+.type-btn.active-asset{border-color:#0F6E56;background:#E1F5EE;color:#085041}
+
+/* storage toggle */
+.st-toggle{display:flex;gap:8px}
+.st-btn{flex:1;height:36px;font-size:13px;border-radius:8px}
+.st-btn.active{border-color:#185FA5;background:#E6F1FB;color:#0C447C;font-weight:500}
+
+/* submit */
+.submit-btn{width:100%;height:44px;margin-top:14px;font-size:14px;font-weight:600;background:#1a1a1a;color:#fff;border-color:#1a1a1a;border-radius:10px}
+.submit-btn:hover{background:#333}
+
+/* photo upload */
+.photo-upload-area{border:1.5px dashed #ccc;border-radius:10px;padding:16px;text-align:center;cursor:pointer;transition:border-color .15s;background:#fafaf9;position:relative;overflow:hidden}
+.photo-upload-area:hover{border-color:#378ADD}
+.photo-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.photo-upload-label{font-size:12px;color:#888;pointer-events:none}
+.photo-upload-label span{display:block;font-size:20px;margin-bottom:4px}
+.photo-previews{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.photo-thumb{position:relative;width:72px;height:72px;border-radius:8px;overflow:hidden;border:1px solid #e0e0e0;flex-shrink:0}
+.photo-thumb img{width:100%;height:100%;object-fit:cover}
+.photo-thumb .del-photo{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;padding:0}
+
+/* table */
+.tbl-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.tbl-title{font-size:15px;font-weight:600}
+.tbl-actions{display:flex;gap:8px}
+.action-btn{font-size:12px;padding:0 10px;height:32px;color:#555;display:flex;align-items:center;gap:4px}
+.filter-row{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.filter-btn{font-size:12px;padding:0 12px;height:30px;border-radius:20px}
+.filter-btn.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.tbl-wrap{overflow-x:auto;border:1px solid #e8e8e6;border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:#f8f8f6;color:#666;font-weight:600;padding:9px 10px;text-align:left;border-bottom:1px solid #e8e8e6;white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid #f0f0ee;color:#1a1a1a;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafaf9}
+.num-badge{font-family:'SF Mono',Monaco,Consolas,monospace;font-size:12px;font-weight:700;color:#1a1a1a}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;white-space:nowrap}
+.b-box{background:#E6F1FB;color:#0C447C}
+.b-asset{background:#E1F5EE;color:#085041}
+.b-office{background:#FAEEDA;color:#633806}
+.b-storage{background:#F1EFE8;color:#5F5E5A}
+.b-admin{background:#EEEDFE;color:#3C3489;font-size:10px}
+.del-btn{background:none;border:none;color:#ccc;padding:4px 6px;height:auto;border-radius:6px}
+.del-btn:hover{background:#FCEBEB;color:#A32D2D}
+.photo-count{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:#888;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.photo-count:hover{color:#378ADD}
+.empty-state{text-align:center;padding:32px;color:#aaa;font-size:13px}
+
+/* login */
+.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f5f3;padding:24px}
+.login-card{background:#fff;border:1px solid #e8e8e6;border-radius:16px;padding:36px 32px;width:100%;max-width:360px}
+.login-logo{text-align:center;margin-bottom:24px}
+.login-logo .title{font-size:20px;font-weight:700;color:#1a1a1a;margin-bottom:4px}
+.login-logo .sub{font-size:13px;color:#888}
+.login-field{margin-bottom:14px}
+.login-field label{display:block;font-size:12px;font-weight:500;color:#555;margin-bottom:5px}
+.login-btn{width:100%;height:44px;background:#1a1a1a;color:#fff;border-color:#1a1a1a;font-size:14px;font-weight:600;border-radius:10px;margin-top:6px}
+.login-btn:hover{background:#333}
+.login-hint{font-size:11px;color:#aaa;text-align:center;margin-top:14px;line-height:1.6}
+.login-err{font-size:12px;color:#c0392b;text-align:center;margin-top:8px;background:#FCEBEB;padding:6px 10px;border-radius:6px}
+
+/* modal (lightbox) */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;align-items:center;justify-content:center;padding:20px}
+.modal-bg.open{display:flex}
+.modal{background:#fff;border-radius:14px;padding:20px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto}
+.modal-title{font-size:15px;font-weight:600;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.modal-close{background:none;border:none;font-size:22px;color:#aaa;padding:0;height:auto;line-height:1}
+.modal-close:hover{color:#333}
+.modal-photos{display:flex;flex-wrap:wrap;gap:10px}
+.modal-photo{border-radius:10px;overflow:hidden;border:1px solid #e0e0e0;cursor:pointer}
+.modal-photo img{width:180px;height:180px;object-fit:cover;display:block}
+.modal-photo:hover img{opacity:.9}
+
+/* info tip */
+.tip{font-size:11px;color:#999;margin-top:6px;line-height:1.5;padding:6px 10px;background:#f8f8f6;border-radius:6px}
+
+/* responsive */
+@media(max-width:540px){
+  .grid2,.grid3{grid-template-columns:1fr}
+  .full{grid-column:1}
+  .metrics{grid-template-columns:1fr 1fr}
+  .topbar{padding:10px 14px}
+  .page{padding:16px 10px 60px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN ===== -->
+<div id="login-page" class="login-page">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="title">📦 搬迁标签登记</div>
+      <div class="sub">信息数据部 · 北京办公室搬迁</div>
+    </div>
+    <div class="login-field">
+      <label>姓名</label>
+      <select id="l-name">
+        <option value="">请选择姓名</option>
+        <option>石泽宇</option><option>段宝莲</option><option>韩雄健</option>
+        <option>张岩</option><option>张旭博</option><option>马小清</option>
+        <option>宫鹏飞</option><option>张建业</option>
+      </select>
+    </div>
+    <div class="login-field">
+      <label>密码</label>
+      <input type="password" id="l-pw" placeholder="jwms.首字母" autocomplete="current-password">
+    </div>
+    <div id="l-err" style="display:none" class="login-err">姓名或密码错误，请重试</div>
+    <button class="login-btn" onclick="doLogin()">登录 →</button>
+    <div class="login-hint">密码格式：jwms.姓名拼音首字母<br>如马小清 → jwms.mxq &nbsp;|&nbsp; 张旭博 → jwms.zxb</div>
+  </div>
+</div>
+
+<!-- ===== MAIN APP ===== -->
+<div id="app-page" style="display:none">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="logo">信息数据部 <span>搬迁标签</span></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="user-pill">
+        <div class="avatar" id="top-avatar"></div>
+        <div>
+          <div class="user-name" id="top-name"></div>
+          <div class="user-role" id="top-role"></div>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="doLogout()">退出</button>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="metrics">
+      <div class="metric"><div class="metric-label">总记录</div><div class="metric-value" id="cnt-all">0</div></div>
+      <div class="metric"><div class="metric-label">箱子标签</div><div class="metric-value" id="cnt-box">0</div></div>
+      <div class="metric"><div class="metric-label">固定资产</div><div class="metric-value" id="cnt-asset">0</div></div>
+    </div>
+
+    <!-- ADD FORM -->
+    <div class="card">
+      <div class="card-title">➕ 添加标签记录</div>
+
+      <div class="type-toggle">
+        <button class="type-btn active-box" id="tbtn-box" onclick="setType('box')">📦 标签1：箱子</button>
+        <button class="type-btn" id="tbtn-asset" onclick="setType('asset')">🖥 标签2：固定资产</button>
+      </div>
+
+      <!-- BOX FORM -->
+      <div id="form-box">
+        <div class="grid2" style="margin-bottom:12px">
+          <div class="field">
+            <label>存放位置</label>
+            <div class="st-toggle">
+              <button class="st-btn active" id="st-office" onclick="setSt('office')">办公区</button>
+              <button class="st-btn" id="st-storage" onclick="setSt('storage')">仓储区</button>
+            </div>
+          </div>
+          <div class="field" id="seat-wrap">
+            <label>座位号（自动带入）</label>
+            <input type="text" id="b-seat" readonly style="background:#f8f8f6;color:#888">
+          </div>
+          <div class="field full">
+            <label>备注（选填）</label>
+            <input type="text" id="b-note" placeholder="如：财务文件、个人书籍、办公用品…">
+          </div>
+        </div>
+        <div class="tip">📌 对应箱子上的 A4 纸贴纸。姓名、部门由登录信息自动填入；仓储区箱子不写座位号。</div>
+
+        <!-- PHOTO -->
+        <div class="field" style="margin-top:12px">
+          <label>拍照上传标签（选填）</label>
+          <div class="photo-upload-area" id="box-upload-area">
+            <input type="file" accept="image/*" multiple capture="environment" id="box-photos-input" onchange="handlePhotos('box',this)">
+            <div class="photo-upload-label"><span>📷</span>点击拍照或选择图片<br><small style="font-size:11px;color:#bbb">可多选，支持直接拍摄</small></div>
+          </div>
+          <div class="photo-previews" id="box-preview"></div>
+        </div>
+      </div>
+
+      <!-- ASSET FORM -->
+      <div id="form-asset" style="display:none">
+        <div class="grid2" style="margin-bottom:12px">
+          <div class="field">
+            <label>物品类型</label>
+            <select id="a-item">
+              <option value="">请选择</option>
+              <option>显示器</option><option>桌子</option><option>个人抽屉</option>
+              <option>边柜</option><option>其他固定资产</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>搬入楼层</label>
+            <select id="a-floor">
+              <option value="">请选择</option>
+              <option>40层（第一阶段）</option>
+              <option>21层（第二阶段）</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>搬入座位号（新座位）</label>
+            <input type="text" id="a-seat" placeholder="如 A-01">
+          </div>
+          <div class="field">
+            <label>备注（选填）</label>
+            <input type="text" id="a-note" placeholder="如：27寸、黑色、3屉…">
+          </div>
+        </div>
+        <div class="tip">📌 对应蚂蚁搬家的搬迁专用标识贴。填写显示器、桌子、个人抽屉、边柜等固定资产。</div>
+
+        <!-- PHOTO -->
+        <div class="field" style="margin-top:12px">
+          <label>拍照上传标签（选填）</label>
+          <div class="photo-upload-area" id="asset-upload-area">
+            <input type="file" accept="image/*" multiple capture="environment" id="asset-photos-input" onchange="handlePhotos('asset',this)">
+            <div class="photo-upload-label"><span>📷</span>点击拍照或选择图片<br><small style="font-size:11px;color:#bbb">可多选，支持直接拍摄</small></div>
+          </div>
+          <div class="photo-previews" id="asset-preview"></div>
+        </div>
+      </div>
+
+      <button class="submit-btn" onclick="addRecord()">✓ 提交并生成编号</button>
+    </div>
+
+    <!-- TABLE -->
+    <div class="tbl-header">
+      <div class="tbl-title">已登记记录</div>
+      <div class="tbl-actions">
+        <button class="action-btn" onclick="exportCSV()">⬇ 导出CSV</button>
+        <button class="action-btn" id="clear-btn" style="display:none;color:#c0392b" onclick="clearAll()">🗑 清空全部</button>
+      </div>
+    </div>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="setFilter(this,'all')">全部</button>
+      <button class="filter-btn" onclick="setFilter(this,'box')">箱子标签</button>
+      <button class="filter-btn" onclick="setFilter(this,'asset')">固定资产</button>
+      <button class="filter-btn" onclick="setFilter(this,'mine')">我的记录</button>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:72px">编号</th>
+            <th style="width:56px">类型</th>
+            <th style="width:56px">位置</th>
+            <th style="width:62px">姓名</th>
+            <th>详情</th>
+            <th style="width:80px">备注</th>
+            <th style="width:56px">照片</th>
+            <th style="width:36px"></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- PHOTO MODAL -->
+<div class="modal-bg" id="photo-modal" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-title">
+      <span id="modal-title-text">标签照片</span>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-photos" id="modal-photos"></div>
+  </div>
+</div>
+
+<script>
+const MEMBERS = {
+  '石泽宇': {pw:'jwms.szy', seat:'40', initials:'石泽', admin:false},
+  '段宝莲': {pw:'jwms.dbl', seat:'35', initials:'段宝', admin:false},
+  '韩雄健': {pw:'jwms.hxj', seat:'36', initials:'韩雄', admin:false},
+  '张岩':   {pw:'jwms.zy',  seat:'38', initials:'张岩', admin:false},
+  '张旭博': {pw:'jwms.zxb', seat:'39', initials:'张旭', admin:false},
+  '马小清': {pw:'jwms.mxq', seat:'34', initials:'马小', admin:true},
+  '宫鹏飞': {pw:'jwms.gpf', seat:'',   initials:'宫鹏', admin:false},
+  '张建业': {pw:'jwms.zjy', seat:'37', initials:'张建', admin:false},
+};
+
+const STORE_RECORDS = 'mj_records_v2';
+const STORE_NUM     = 'mj_nextnum_v2';
+
+let currentUser = null;
+let records = [];
+let nextNum = 1;
+let curType = 'box';
+let curSt   = 'office';
+let curFilter = 'all';
+let pendingPhotos = {box:[], asset:[]};
+
+function load() {
+  try { records = JSON.parse(localStorage.getItem(STORE_RECORDS)||'[]'); } catch(e){ records=[]; }
+  try { nextNum = parseInt(localStorage.getItem(STORE_NUM)||'1')||1; } catch(e){ nextNum=1; }
+}
+function save() {
+  localStorage.setItem(STORE_RECORDS, JSON.stringify(records));
+  localStorage.setItem(STORE_NUM, String(nextNum));
+}
+
+// LOGIN
+function doLogin() {
+  const name = document.getElementById('l-name').value;
+  const pw   = document.getElementById('l-pw').value.trim();
+  const err  = document.getElementById('l-err');
+  if (!name) { err.textContent='请先选择姓名'; err.style.display='block'; return; }
+  const m = MEMBERS[name];
+  if (!m || pw !== m.pw) { err.style.display='block'; return; }
+  err.style.display='none';
+  currentUser = {name, ...m};
+  load();
+  showApp();
+}
+document.getElementById('l-pw').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
+
+function showApp() {
+  document.getElementById('login-page').style.display='none';
+  document.getElementById('app-page').style.display='block';
+  document.getElementById('top-name').textContent = currentUser.name;
+  document.getElementById('top-role').textContent = currentUser.admin
+    ? '联络员（管理员）'
+    : (currentUser.seat ? '座位 ' + currentUser.seat : 'IT运维 · 非北京base');
+  document.getElementById('top-avatar').textContent = currentUser.initials;
+  document.getElementById('clear-btn').style.display = currentUser.admin ? 'flex' : 'none';
+  document.getElementById('b-seat').value = currentUser.seat || '（无固定座位）';
+  updateCounters();
+  renderTable();
+}
+
+function doLogout() {
+  currentUser = null;
+  pendingPhotos = {box:[], asset:[]};
+  document.getElementById('app-page').style.display='none';
+  document.getElementById('login-page').style.display='flex';
+  document.getElementById('l-name').value='';
+  document.getElementById('l-pw').value='';
+  document.getElementById('box-preview').innerHTML='';
+  document.getElementById('asset-preview').innerHTML='';
+  curFilter='all'; curType='box'; curSt='office';
+}
+
+// TYPE & STORAGE
+function setType(t) {
+  curType = t;
+  document.getElementById('form-box').style.display   = t==='box' ? '' : 'none';
+  document.getElementById('form-asset').style.display = t==='asset' ? '' : 'none';
+  document.getElementById('tbtn-box').className   = 'type-btn' + (t==='box' ? ' active-box' : '');
+  document.getElementById('tbtn-asset').className = 'type-btn' + (t==='asset' ? ' active-asset' : '');
+}
+function setSt(s) {
+  curSt = s;
+  document.getElementById('st-office').className  = 'st-btn' + (s==='office' ? ' active' : '');
+  document.getElementById('st-storage').className = 'st-btn' + (s==='storage' ? ' active' : '');
+  const sw = document.getElementById('seat-wrap');
+  const si = document.getElementById('b-seat');
+  if (s==='storage') { sw.style.opacity='0.4'; si.value='（仓储不填）'; }
+  else               { sw.style.opacity='1';   si.value=currentUser.seat||'（无固定座位）'; }
+}
+
+// PHOTOS
+function handlePhotos(kind, input) {
+  const files = Array.from(input.files);
+  const previewEl = document.getElementById(kind+'-preview');
+  files.forEach(file=>{
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = e=>{
+      const dataUrl = e.target.result;
+      const idx = pendingPhotos[kind].length;
+      pendingPhotos[kind].push(dataUrl);
+      const thumb = document.createElement('div');
+      thumb.className='photo-thumb';
+      thumb.innerHTML=`<img src="${dataUrl}" alt="标签照片"><button class="del-photo" onclick="removePhoto('${kind}',${idx},this.parentNode)">×</button>`;
+      previewEl.appendChild(thumb);
+    };
+    reader.readAsDataURL(file);
+  });
+  input.value='';
+}
+function removePhoto(kind, idx, el) {
+  pendingPhotos[kind][idx] = null;
+  el.remove();
+}
+
+// ADD RECORD
+function addRecord() {
+  const rec = {
+    id: Date.now(),
+    num: 'SJ-'+nextNum,
+    type: curType,
+    owner: currentUser.name,
+    dept: '信息数据部',
+    name: currentUser.name,
+    ts: new Date().toLocaleString('zh-CN',{hour12:false})
+  };
+
+  const photos = (pendingPhotos[curType]||[]).filter(Boolean);
+
+  if (curType==='box') {
+    rec.storage = curSt;
+    rec.seat    = curSt==='office' ? (currentUser.seat||'') : '';
+    rec.detail  = curSt==='office' ? '座位:'+(currentUser.seat||'—') : '仓储区';
+    rec.note    = document.getElementById('b-note').value.trim();
+    rec.photos  = photos;
+    document.getElementById('b-note').value='';
+  } else {
+    const item  = document.getElementById('a-item').value;
+    const floor = document.getElementById('a-floor').value;
+    if (!item)  { alert('请选择物品类型'); return; }
+    rec.storage = 'office';
+    rec.item    = item;
+    rec.floor   = floor;
+    rec.seat    = document.getElementById('a-seat').value.trim();
+    rec.detail  = item + (floor ? ' · '+floor : '');
+    rec.note    = document.getElementById('a-note').value.trim();
+    rec.photos  = photos;
+    document.getElementById('a-item').value='';
+    document.getElementById('a-floor').value='';
+    document.getElementById('a-seat').value='';
+    document.getElementById('a-note').value='';
+  }
+
+  nextNum++;
+  records.push(rec);
+  save();
+  pendingPhotos[curType]=[];
+  document.getElementById(curType+'-preview').innerHTML='';
+  updateCounters();
+  renderTable();
+}
+
+// DELETE
+function deleteRecord(id) {
+  const rec = records.find(r=>r.id===id);
+  if (!rec) return;
+  if (!currentUser.admin && rec.owner!==currentUser.name) { alert('只能删除自己的记录'); return; }
+  if (!confirm('确认删除 '+rec.num+' ？')) return;
+  records = records.filter(r=>r.id!==id);
+  save();
+  updateCounters();
+  renderTable();
+}
+
+function clearAll() {
+  if (!currentUser.admin) return;
+  if (!confirm('确认清空全部 '+records.length+' 条记录？此操作不可恢复！')) return;
+  records=[]; nextNum=1; save(); updateCounters(); renderTable();
+}
+
+// FILTER
+function setFilter(btn, f) {
+  curFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable();
+}
+
+// COUNTERS
+function updateCounters() {
+  document.getElementById('cnt-all').textContent   = records.length;
+  document.getElementById('cnt-box').textContent   = records.filter(r=>r.type==='box').length;
+  document.getElementById('cnt-asset').textContent = records.filter(r=>r.type==='asset').length;
+}
+
+// RENDER TABLE
+function renderTable() {
+  let list = records;
+  if (curFilter==='box')   list = records.filter(r=>r.type==='box');
+  if (curFilter==='asset') list = records.filter(r=>r.type==='asset');
+  if (curFilter==='mine')  list = records.filter(r=>r.owner===currentUser.name);
+
+  const tbody = document.getElementById('tbody');
+  if (!list.length) {
+    tbody.innerHTML='<tr><td colspan="8" class="empty-state">暂无记录，添加后将在此显示</td></tr>';
+    return;
+  }
+  tbody.innerHTML = list.map(r=>{
+    const canDel = currentUser.admin || r.owner===currentUser.name;
+    const typeBadge = r.type==='box'
+      ? '<span class="badge b-box">箱子</span>'
+      : '<span class="badge b-asset">资产</span>';
+    const stBadge = (r.storage==='storage')
+      ? '<span class="badge b-storage">仓储</span>'
+      : '<span class="badge b-office">办公</span>';
+    const othMark = (currentUser.admin && r.owner!==currentUser.name)
+      ? ' <span class="badge b-admin">他人</span>' : '';
+    const photosHtml = (r.photos && r.photos.length)
+      ? `<span class="photo-count" onclick="openModal(${r.id})">📷 ${r.photos.length}张</span>`
+      : '<span style="color:#ccc;font-size:11px">—</span>';
+    const delHtml = canDel
+      ? `<button class="del-btn" onclick="deleteRecord(${r.id})" title="删除">✕</button>` : '';
+    return `<tr>
+      <td><span class="num-badge">${r.num}</span></td>
+      <td>${typeBadge}</td>
+      <td>${stBadge}</td>
+      <td>${r.name}${othMark}</td>
+      <td title="${r.detail}">${r.detail}</td>
+      <td title="${r.note||''}" style="color:#888">${r.note||'—'}</td>
+      <td>${photosHtml}</td>
+      <td>${delHtml}</td>
+    </tr>`;
+  }).join('');
+}
+
+// PHOTO MODAL
+function openModal(id) {
+  const rec = records.find(r=>r.id===id);
+  if (!rec || !rec.photos || !rec.photos.length) return;
+  document.getElementById('modal-title-text').textContent = rec.num + ' · ' + rec.name + ' 的标签照片';
+  const cont = document.getElementById('modal-photos');
+  cont.innerHTML = rec.photos.map((p,i)=>
+    `<div class="modal-photo"><img src="${p}" alt="标签照片${i+1}" onclick="openFullImg('${p}')"></div>`
+  ).join('');
+  document.getElementById('photo-modal').classList.add('open');
+}
+function closeModal(e) {
+  if (!e || e.target===document.getElementById('photo-modal'))
+    document.getElementById('photo-modal').classList.remove('open');
+}
+function openFullImg(src) {
+  const w = window.open();
+  w.document.write('<img src="'+src+'" style="max-width:100%;display:block;margin:auto">');
+}
+
+// EXPORT CSV
+function exportCSV() {
+  if (!records.length) { alert('暂无数据可导出'); return; }
+  const hdr = '编号,类型,存放,姓名,部门,详情,备注,照片数量,登记时间\n';
+  const rows = records.map(r=>[
+    r.num,
+    r.type==='box'?'箱子标签':'固定资产',
+    r.storage==='storage'?'仓储':'办公',
+    r.name, r.dept, r.detail, r.note||'',
+    (r.photos||[]).length,
+    r.ts||''
+  ].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const blob = new Blob(['\uFEFF'+hdr+rows],{type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download='信息数据部搬迁标签.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
