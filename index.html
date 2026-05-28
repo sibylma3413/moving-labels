@@ -364,10 +364,12 @@ tr:hover td{background:#fafaf9}
           <div class="grid2" style="margin-bottom:12px">
             <div class="field">
               <label>物品类型</label>
-              <select id="a-item">
+              <select id="a-item" onchange="document.getElementById('a-item-other').style.display=this.value==='other'?'':'none'">
                 <option value="">请选择</option>
-                <option>显示器</option><option>桌子</option><option>个人抽屉</option>
-                <option>边柜</option><option>其他固定资产</option>
+                <option>显示器</option><option>桌子</option><option>椅子</option>
+                <option>个人抽屉</option><option>边柜</option><option value="other">其他</option>
+              </select>
+              <input type="text" id="a-item-other" placeholder="请描述物品" style="display:none;margin-top:6px">
               </select>
             </div>
             <div class="field">
@@ -619,8 +621,9 @@ async function addRecord(){
     rec.detail=curSt==='office'?'座位:'+(currentUser.seat||'—'):'仓储区';
     rec.note=document.getElementById('b-note').value.trim();
   }else{
-    const item=document.getElementById('a-item').value,floor=document.getElementById('a-floor').value;
-    if(!item){showStatus('请选择物品类型','err');btn.disabled=false;return;}
+    const itemVal=document.getElementById('a-item').value,floor=document.getElementById('a-floor').value;
+    const item=itemVal==='other'?document.getElementById('a-item-other').value.trim():itemVal;
+    if(!item){showStatus('请选择或填写物品类型','err');btn.disabled=false;return;}
     rec.storage='office';rec.item=item;rec.floor=floor;
     rec.seat=currentUser.name==='宫鹏飞'?document.getElementById('a-seat-select').value:document.getElementById('a-seat').value.trim();
     rec.detail=item+(floor?' · '+floor:'');
@@ -631,7 +634,7 @@ async function addRecord(){
     await saveData();
     showStatus('✓ 已保存，编号 '+rec.num,'ok');
     if(curType==='box'){document.getElementById('b-note').value='';}
-    else{document.getElementById('a-item').value='';document.getElementById('a-floor').value='';document.getElementById('a-seat').value='';document.getElementById('a-seat-select').value='';document.getElementById('a-seat').style.display='';document.getElementById('a-seat-select').style.display='none';document.getElementById('a-seat-wrap').style.opacity='0.6';document.getElementById('a-note').value='';}
+    else{document.getElementById('a-item').value='';document.getElementById('a-item-other').value='';document.getElementById('a-item-other').style.display='none';document.getElementById('a-floor').value='';document.getElementById('a-seat').value='';document.getElementById('a-seat-select').value='';document.getElementById('a-seat').style.display='';document.getElementById('a-seat-select').style.display='none';document.getElementById('a-seat-wrap').style.opacity='0.6';document.getElementById('a-note').value='';}
     pendingPhotos[curType]=[];document.getElementById(curType+'-preview').innerHTML='';
     updateCounters();renderTable();
   }catch(e){records.pop();showStatus('保存失败：'+e.message,'err');}
