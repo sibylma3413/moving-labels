@@ -372,15 +372,20 @@ tr:hover td{background:#fafaf9}
             </div>
             <div class="field">
               <label>搬入楼层</label>
-              <select id="a-floor">
+              <select id="a-floor" onchange="onFloorChange()">
                 <option value="">请选择</option>
-                <option>40层（第一阶段）</option>
-                <option>21层（第二阶段）</option>
+                <option value="40">40层（第一阶段）</option>
+                <option value="21">21层（第二阶段）</option>
               </select>
             </div>
-            <div class="field">
+            <div class="field" id="a-seat-wrap">
               <label>搬入座位号</label>
-              <input type="text" id="a-seat" placeholder="新座位号">
+              <input type="text" id="a-seat" placeholder="请先选择楼层" readonly style="background:#f8f8f6;color:#888">
+              <select id="a-seat-select" style="display:none" onchange="document.getElementById('a-seat').value=this.value">
+                <option value="">请选择座位号</option>
+                <option>34</option><option>35</option><option>36</option>
+                <option>37</option><option>38</option><option>39</option><option>40</option>
+              </select>
             </div>
             <div class="field">
               <label>备注（选填）</label>
@@ -539,6 +544,35 @@ function doLogout(){
   switchTab('overview');
 }
 
+function onFloorChange(){
+  const floor=document.getElementById('a-floor').value;
+  const seatInput=document.getElementById('a-seat');
+  const seatSelect=document.getElementById('a-seat-select');
+  const seatWrap=document.getElementById('a-seat-wrap');
+  if(floor==='21'){
+    seatWrap.style.opacity='0.4';
+    seatInput.value='（21层不填）';
+    seatInput.style.display='';
+    seatSelect.style.display='none';
+  } else if(floor==='40'){
+    seatWrap.style.opacity='1';
+    if(currentUser.name==='宫鹏飞'){
+      seatInput.style.display='none';
+      seatSelect.style.display='';
+      seatSelect.value='';
+      seatInput.value='';
+    } else {
+      seatInput.style.display='';
+      seatSelect.style.display='none';
+      seatInput.value=currentUser.seat||'';
+    }
+  } else {
+    seatWrap.style.opacity='0.6';
+    seatInput.value='';
+    seatInput.style.display='';
+    seatSelect.style.display='none';
+  }
+}
 function setType(t){
   curType=t;
   document.getElementById('form-box').style.display=t==='box'?'':'none';
@@ -588,7 +622,7 @@ async function addRecord(){
     const item=document.getElementById('a-item').value,floor=document.getElementById('a-floor').value;
     if(!item){showStatus('请选择物品类型','err');btn.disabled=false;return;}
     rec.storage='office';rec.item=item;rec.floor=floor;
-    rec.seat=document.getElementById('a-seat').value.trim();
+    rec.seat=currentUser.name==='宫鹏飞'?document.getElementById('a-seat-select').value:document.getElementById('a-seat').value.trim();
     rec.detail=item+(floor?' · '+floor:'');
     rec.note=document.getElementById('a-note').value.trim();
   }
@@ -597,7 +631,7 @@ async function addRecord(){
     await saveData();
     showStatus('✓ 已保存，编号 '+rec.num,'ok');
     if(curType==='box'){document.getElementById('b-note').value='';}
-    else{document.getElementById('a-item').value='';document.getElementById('a-floor').value='';document.getElementById('a-seat').value='';document.getElementById('a-note').value='';}
+    else{document.getElementById('a-item').value='';document.getElementById('a-floor').value='';document.getElementById('a-seat').value='';document.getElementById('a-seat-select').value='';document.getElementById('a-seat').style.display='';document.getElementById('a-seat-select').style.display='none';document.getElementById('a-seat-wrap').style.opacity='0.6';document.getElementById('a-note').value='';}
     pendingPhotos[curType]=[];document.getElementById(curType+'-preview').innerHTML='';
     updateCounters();renderTable();
   }catch(e){records.pop();showStatus('保存失败：'+e.message,'err');}
