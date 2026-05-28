@@ -613,7 +613,8 @@ async function addRecord(){
     const file=await ghGet(DATA_FILE);
     if(file){fileSHA=file.sha;records=JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))))).records||[];}
   }catch(e){showStatus(e.message,'err');btn.disabled=false;return;}
-  const nextNum=records.length>0?Math.max(...records.map(r=>parseInt(r.num.replace('SJ-',''))||0))+1:1;
+  const usedNums=new Set(records.map(r=>parseInt(r.num.replace('SJ-',''))||0));
+  let nextNum=1;while(usedNums.has(nextNum))nextNum++;
   const photos=(pendingPhotos[curType]||[]).filter(Boolean);
   const rec={id:Date.now(),num:'SJ-'+nextNum,type:curType,owner:currentUser.name,dept:'信息数据部',name:currentUser.name,ts:new Date().toLocaleString('zh-CN',{hour12:false}),photos};
   if(curType==='box'){
@@ -643,7 +644,7 @@ async function addRecord(){
 
 async function deleteRecord(id){
   const rec=records.find(r=>r.id===id);if(!rec)return;
-  if(!currentUser.admin&&rec.owner!==currentUser.name){alert('只能删除自己的记录');return;}
+  if(!currentUser.admin){alert('只有联络员可以删除记录');return;}
   if(!confirm('确认删除 '+rec.num+' ？'))return;
   records=records.filter(r=>r.id!==id);
   showStatus('正在删除…','loading');
@@ -673,7 +674,7 @@ function renderTable(){
   const tbody=document.getElementById('tbody');
   if(!list.length){tbody.innerHTML='<tr><td colspan="8" class="empty-state">暂无记录</td></tr>';return;}
   tbody.innerHTML=list.map(r=>{
-    const canDel=currentUser.admin||r.owner===currentUser.name;
+    const canDel=currentUser.admin;
     const typeBadge=r.type==='box'?'<span class="rbadge rb-box">箱子</span>':'<span class="rbadge rb-asset">资产</span>';
     const stBadge=r.storage==='storage'?'<span class="rbadge rb-storage">仓储</span>':'<span class="rbadge rb-office">办公</span>';
     const othMark=(currentUser.admin&&r.owner!==currentUser.name)?' <span class="rbadge rb-admin">他人</span>':'';
