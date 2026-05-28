@@ -175,22 +175,6 @@
       "seat": "39",
       "detail": "显示器 · 40",
       "note": ""
-    },
-    {
-      "id": 1779955999813,
-      "num": "SJ-12",
-      "type": "asset",
-      "owner": "张旭博",
-      "dept": "信息数据部",
-      "name": "张旭博",
-      "ts": "2026/5/28 16:13:19",
-      "photos": [],
-      "storage": "office",
-      "item": "椅子",
-      "floor": "40",
-      "seat": "39",
-      "detail": "椅子 · 40",
-      "note": ""
     }
   ]
 }
