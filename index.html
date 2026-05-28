@@ -23,17 +23,58 @@ button:hover{background:#f0f0ee}
 
 .page{max-width:780px;margin:0 auto;padding:24px 16px 60px}
 .card{background:#fff;border:1px solid #e8e8e6;border-radius:14px;padding:20px;margin-bottom:16px}
-.card-title{font-size:15px;font-weight:600;margin-bottom:16px}
+.card-title{font-size:15px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .full{grid-column:1/-1}
 .field{display:flex;flex-direction:column;gap:4px}
 .field label{font-size:12px;color:#666;font-weight:500}
 
+/* 标签切换 */
+.tab-bar{display:flex;gap:0;margin-bottom:20px;border:1px solid #e8e8e6;border-radius:10px;overflow:hidden}
+.tab-btn{flex:1;height:44px;font-size:14px;font-weight:500;border:none;border-radius:0;background:#f8f8f6;color:#888;transition:all .15s}
+.tab-btn.active{background:#1a1a1a;color:#fff}
+.tab-btn:first-child{border-right:1px solid #e8e8e6}
+
+/* 概览模块 */
+.overview-section{margin-bottom:16px}
+.today-card{background:#FAEEDA;border:1px solid #EF9F27;border-radius:12px;padding:16px;margin-bottom:12px}
+.today-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.today-title{font-size:14px;font-weight:600;color:#412402}
+.steps{display:flex;flex-direction:column;gap:8px}
+.step{display:flex;gap:10px;align-items:flex-start}
+.step-num{width:22px;height:22px;border-radius:50%;background:#BA7517;color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text{font-size:13px;color:#412402;line-height:1.5}
+.ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ov-card{background:#fff;border:1px solid #e8e8e6;border-radius:12px;padding:14px 16px}
+.ov-title{font-size:13px;font-weight:600;margin-bottom:10px;color:#1a1a1a;display:flex;align-items:center;gap:6px}
+.ov-item{display:flex;gap:8px;padding:5px 0;border-bottom:1px solid #f0f0ee;align-items:flex-start}
+.ov-item:last-child{border-bottom:none;padding-bottom:0}
+.ov-dot{width:6px;height:6px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.ov-text{font-size:12px;color:#333;line-height:1.5}
+.ov-text b{font-weight:600}
+.badge{display:inline-block;font-size:11px;font-weight:500;padding:1px 7px;border-radius:4px;margin-right:3px}
+.b-blue{background:#E6F1FB;color:#0C447C}
+.b-teal{background:#E1F5EE;color:#085041}
+.b-red{background:#FCEBEB;color:#A32D2D}
+.b-amber{background:#FAEEDA;color:#633806}
+.b-gray{background:#F1EFE8;color:#5F5E5A}
+
+/* 时间轴 */
+.timeline{display:flex;flex-direction:column}
+.tl-item{display:flex;gap:10px}
+.tl-left{display:flex;flex-direction:column;align-items:center;width:24px;flex-shrink:0}
+.tl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.tl-line{width:1.5px;background:#e8e8e6;flex:1;min-height:10px}
+.tl-item:last-child .tl-line{display:none}
+.tl-body{padding-bottom:12px;flex:1}
+.tl-date{font-size:12px;font-weight:600;color:#555;margin-bottom:2px}
+.tl-text{font-size:12px;color:#666;line-height:1.5}
+
+/* 登记模块 */
 .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
 .metric{background:#fff;border:1px solid #e8e8e6;border-radius:10px;padding:12px 14px}
 .metric-label{font-size:11px;color:#888;margin-bottom:4px}
 .metric-value{font-size:22px;font-weight:700}
-
 .type-toggle{display:flex;gap:8px;margin-bottom:16px}
 .type-btn{flex:1;height:42px;font-size:13px;font-weight:500;border-radius:10px}
 .type-btn.ab{border-color:#185FA5;background:#E6F1FB;color:#0C447C}
@@ -41,11 +82,9 @@ button:hover{background:#f0f0ee}
 .st-toggle{display:flex;gap:8px}
 .st-btn{flex:1;height:36px;font-size:13px;border-radius:8px}
 .st-btn.on{border-color:#185FA5;background:#E6F1FB;color:#0C447C;font-weight:500}
-
 .submit-btn{width:100%;height:44px;margin-top:14px;font-size:14px;font-weight:600;background:#1a1a1a;color:#fff;border-color:#1a1a1a;border-radius:10px}
 .submit-btn:hover{background:#333}
 .submit-btn:disabled{background:#999;border-color:#999;cursor:not-allowed}
-
 .photo-upload-area{border:1.5px dashed #ccc;border-radius:10px;padding:16px;text-align:center;cursor:pointer;background:#fafaf9;position:relative}
 .photo-upload-area:hover{border-color:#378ADD}
 .photo-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
@@ -54,7 +93,6 @@ button:hover{background:#f0f0ee}
 .photo-thumb{position:relative;width:72px;height:72px;border-radius:8px;overflow:hidden;border:1px solid #e0e0e0}
 .photo-thumb img{width:100%;height:100%;object-fit:cover}
 .del-photo{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;padding:0}
-
 .tbl-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .tbl-title{font-size:15px;font-weight:600}
 .tbl-actions{display:flex;gap:8px}
@@ -69,20 +107,24 @@ td{padding:8px 10px;border-bottom:1px solid #f0f0ee;vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#fafaf9}
 .num-mono{font-family:monospace;font-size:12px;font-weight:700}
-.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;white-space:nowrap}
-.b-box{background:#E6F1FB;color:#0C447C}
-.b-asset{background:#E1F5EE;color:#085041}
-.b-office{background:#FAEEDA;color:#633806}
-.b-storage{background:#F1EFE8;color:#5F5E5A}
-.b-admin{background:#EEEDFE;color:#3C3489;font-size:10px}
+.rbadge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;white-space:nowrap}
+.rb-box{background:#E6F1FB;color:#0C447C}
+.rb-asset{background:#E1F5EE;color:#085041}
+.rb-office{background:#FAEEDA;color:#633806}
+.rb-storage{background:#F1EFE8;color:#5F5E5A}
+.rb-admin{background:#EEEDFE;color:#3C3489;font-size:10px}
 .del-btn{background:none;border:none;color:#ccc;padding:4px 6px;height:auto;border-radius:6px;cursor:pointer}
 .del-btn:hover{background:#FCEBEB;color:#A32D2D}
 .photo-link{font-size:11px;color:#888;cursor:pointer;text-decoration:underline}
-.photo-link:hover{color:#378ADD}
 .empty-state{text-align:center;padding:32px;color:#aaa;font-size:13px}
 .tip{font-size:11px;color:#999;margin-top:6px;padding:6px 10px;background:#f8f8f6;border-radius:6px}
+.status-bar{border-radius:8px;padding:8px 12px;font-size:12px;margin-bottom:12px;display:none}
+.status-bar.show{display:block}
+.status-bar.loading{background:#fff3cd;border:1px solid #ffc107;color:#856404}
+.status-bar.err{background:#FCEBEB;border:1px solid #f5c6cb;color:#721c24}
+.status-bar.ok{background:#d4edda;border:1px solid #c3e6cb;color:#155724}
 
-/* 登录页 */
+/* 登录 */
 .login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f5f3;padding:24px}
 .login-card{background:#fff;border:1px solid #e8e8e6;border-radius:16px;padding:32px;width:100%;max-width:380px}
 .login-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:4px}
@@ -96,14 +138,8 @@ tr:hover td{background:#fafaf9}
 .login-err{font-size:12px;color:#c0392b;margin-top:8px;background:#FCEBEB;padding:6px 10px;border-radius:6px;display:none}
 .login-footer{font-size:11px;color:#aaa;text-align:center;margin-top:16px;line-height:1.6}
 .token-section{border-top:1px solid #f0f0ee;margin-top:16px;padding-top:16px}
-.token-toggle{font-size:12px;color:#378ADD;cursor:pointer;text-align:center;display:block;margin-bottom:8px}
 
-.status-bar{border-radius:8px;padding:8px 12px;font-size:12px;margin-bottom:12px;display:none}
-.status-bar.show{display:block}
-.status-bar.loading{background:#fff3cd;border:1px solid #ffc107;color:#856404}
-.status-bar.err{background:#FCEBEB;border:1px solid #f5c6cb;color:#721c24}
-.status-bar.ok{background:#d4edda;border:1px solid #c3e6cb;color:#155724}
-
+/* 照片弹窗 */
 .photo-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;align-items:center;justify-content:center;padding:20px}
 .photo-modal-bg.open{display:flex}
 .photo-modal{background:#fff;border-radius:14px;padding:20px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto}
@@ -113,7 +149,7 @@ tr:hover td{background:#fafaf9}
 .photo-modal-photos img{width:160px;height:160px;object-fit:cover;border-radius:10px;border:1px solid #e0e0e0;cursor:pointer;display:block}
 
 @media(max-width:540px){
-  .grid2{grid-template-columns:1fr}
+  .grid2,.ov-grid{grid-template-columns:1fr}
   .full{grid-column:1}
   .metrics{grid-template-columns:1fr 1fr}
   .topbar{padding:10px 14px}
@@ -128,7 +164,6 @@ tr:hover td{background:#fafaf9}
   <div class="login-card">
     <div class="login-title">📦 搬迁标签登记</div>
     <div class="login-sub">信息数据部 · 北京办公室搬迁</div>
-
     <div class="login-field">
       <label>姓名</label>
       <select id="l-name">
@@ -142,22 +177,16 @@ tr:hover td{background:#fafaf9}
       <label>密码</label>
       <input type="password" id="l-pw" placeholder="jwms.首字母">
     </div>
-
-    <!-- Token 区域，默认隐藏，首次使用时显示 -->
     <div id="token-section" class="token-section" style="display:none">
       <div class="login-field">
         <label>GitHub Token（首次使用填写一次）</label>
         <input type="password" id="l-token" placeholder="ghp_xxxxxxxxxxxxxxxx">
-        <div class="login-hint-text">Token 只存在你的浏览器里，填写一次后自动记住</div>
+        <div class="login-hint-text">只存在你的浏览器里，填写一次后自动记住</div>
       </div>
     </div>
-
     <div class="login-err" id="l-err"></div>
     <button class="primary-btn" id="login-btn" onclick="doLogin()">登录 →</button>
-    <div class="login-footer">
-      密码格式：jwms.姓名拼音首字母<br>
-      如马小清 → jwms.mxq | 张旭博 → jwms.zxb
-    </div>
+    <div class="login-footer">密码格式：jwms.姓名拼音首字母<br>如马小清 → jwms.mxq | 张旭博 → jwms.zxb</div>
   </div>
 </div>
 
@@ -178,120 +207,229 @@ tr:hover td{background:#fafaf9}
   </div>
 
   <div class="page">
-    <div class="status-bar" id="status-bar"></div>
-
-    <div class="metrics">
-      <div class="metric"><div class="metric-label">总记录</div><div class="metric-value" id="cnt-all">0</div></div>
-      <div class="metric"><div class="metric-label">箱子标签</div><div class="metric-value" id="cnt-box">0</div></div>
-      <div class="metric"><div class="metric-label">固定资产</div><div class="metric-value" id="cnt-asset">0</div></div>
+    <!-- 模块切换 -->
+    <div class="tab-bar">
+      <button class="tab-btn active" id="tab-overview" onclick="switchTab('overview')">📋 搬迁概览</button>
+      <button class="tab-btn" id="tab-record" onclick="switchTab('record')">🏷 物品编码登记</button>
     </div>
 
-    <div class="card">
-      <div class="card-title">➕ 添加标签记录</div>
-      <div class="type-toggle">
-        <button class="type-btn ab" id="tbtn-box" onclick="setType('box')">📦 标签1：箱子</button>
-        <button class="type-btn" id="tbtn-asset" onclick="setType('asset')">🖥 标签2：固定资产</button>
+    <!-- 概览模块 -->
+    <div id="section-overview">
+      <div class="today-card">
+        <div class="today-head">
+          <span style="font-size:18px">⚠️</span>
+          <div class="today-title">今日（5月28日）须完成</div>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-text">整理打包个人物品及公司文件，<b>所有柜子清空</b></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text">切换到「物品编码登记」标签，填写信息获取编号</div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text">按系统编号手写标签并贴好</div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-text">箱子搬至<b>大厅产品展示区</b>，不堆过道，与顺丰寄件区域分开</div></div>
+        </div>
       </div>
 
-      <div id="form-box">
-        <div class="grid2" style="margin-bottom:12px">
-          <div class="field">
-            <label>存放位置</label>
-            <div class="st-toggle">
-              <button class="st-btn on" id="st-office" onclick="setSt('office')">办公区</button>
-              <button class="st-btn" id="st-storage" onclick="setSt('storage')">仓储区</button>
+      <div class="ov-grid">
+        <div class="ov-card">
+          <div class="ov-title">🗓 整体时间安排</div>
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-left"><div class="tl-dot" style="background:#E24B4A"></div><div class="tl-line"></div></div>
+              <div class="tl-body"><div class="tl-date">5月28日（今天）</div><div class="tl-text">完成初步打包 + 贴好标签并编码，下班前提交登记表</div></div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-left"><div class="tl-dot" style="background:#BA7517"></div><div class="tl-line"></div></div>
+              <div class="tl-body"><div class="tl-date">5月29日（周五）</div><div class="tl-text">下班前完成所有打包，柜子<b>上锁</b>，网络可能关停，提前做好准备</div></div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-left"><div class="tl-dot" style="background:#378ADD"></div><div class="tl-line"></div></div>
+              <div class="tl-body"><div class="tl-date">5月30日—31日</div><div class="tl-text">搬家公司拆装家具并搬运物品</div></div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-left"><div class="tl-dot" style="background:#1D9E75"></div><div class="tl-line"></div></div>
+              <div class="tl-body"><div class="tl-date">6月1日</div><div class="tl-text">全员在新办公地点正常上班</div></div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-left"><div class="tl-dot" style="background:#888780"></div><div class="tl-line"></div></div>
+              <div class="tl-body"><div class="tl-date">9月（预计）</div><div class="tl-text">第二阶段：40层迁至同楼21层</div></div>
             </div>
           </div>
-          <div class="field" id="seat-wrap">
-            <label>座位号（自动带入）</label>
-            <input type="text" id="b-seat" readonly style="background:#f8f8f6;color:#888">
+        </div>
+
+        <div class="ov-card">
+          <div class="ov-title">🏷 标签填写说明</div>
+          <div class="ov-item">
+            <div class="ov-dot" style="background:#378ADD;margin-top:7px"></div>
+            <div class="ov-text"><span class="badge b-blue">标签1 箱子</span>选办公/仓储，填部门、姓名、座位号、箱子编号（SJ-X）</div>
           </div>
-          <div class="field full">
-            <label>备注（选填）</label>
-            <input type="text" id="b-note" placeholder="如：财务文件、个人书籍…">
+          <div class="ov-item">
+            <div class="ov-dot" style="background:#1D9E75;margin-top:7px"></div>
+            <div class="ov-text"><span class="badge b-teal">标签2 固定资产</span>填姓名、部门、物品编号（SJ-X），适用于显示器、桌子、抽屉、边柜</div>
+          </div>
+          <div class="ov-item">
+            <div class="ov-dot" style="background:#BA7517;margin-top:5px"></div>
+            <div class="ov-text"><b>编号规则：</b>先在系统填表获取 SJ-X 编号，再写到线下标签上</div>
+          </div>
+          <div class="ov-item">
+            <div class="ov-dot" style="background:#888780;margin-top:5px"></div>
+            <div class="ov-text"><b>仓储区封闭管理</b>，不能随取随用，请确认好存放位置再填</div>
           </div>
         </div>
-        <div class="tip">📌 对应箱子上的 A4 纸贴纸。姓名、部门由登录信息自动填入；仓储区箱子不填座位号。</div>
-        <div class="field" style="margin-top:12px">
-          <label>拍照上传标签（选填）</label>
-          <div class="photo-upload-area">
-            <input type="file" accept="image/*" multiple capture="environment" id="box-photos-input" onchange="handlePhotos('box',this)">
-            <div class="photo-label">📷 点击拍照或选择图片（可多选）</div>
+
+        <div class="ov-card">
+          <div class="ov-title">📌 重要注意事项</div>
+          <div class="ov-item">
+            <div class="ov-dot" style="background:#E24B4A;margin-top:5px"></div>
+            <div class="ov-text"><b>柜子：</b>边柜、货柜、桌下柜全部清空，29日离开时<b>必须上锁</b>，钥匙贴归属标签统一保管</div>
           </div>
-          <div class="photo-previews" id="box-preview"></div>
+          <div class="ov-item">
+            <div class="ov-dot" style="background:#BA7517;margin-top:5px"></div>
+            <div class="ov-text"><b>冰箱/衣柜：</b>及时清理公共冰箱个人食品和公用衣柜衣物</div>
+          </div>
+          <div class="ov-item">
+            <div class="ov-dot" style="background:#378ADD;margin-top:5px"></div>
+            <div class="ov-text"><b>门禁卡：</b>打印卡妥善保留；新门禁卡周五下午按部门发放</div>
+          </div>
+          <div class="ov-item">
+            <div class="ov-dot" style="background:#1D9E75;margin-top:5px"></div>
+            <div class="ov-text"><b>对外地址：</b>记得更新公司对外联络地址，避免文件错误投送</div>
+          </div>
+        </div>
+
+        <div class="ov-card">
+          <div class="ov-title">📍 新办公地址</div>
+          <div class="ov-item">
+            <div class="ov-dot" style="background:#378ADD;margin-top:5px"></div>
+            <div class="ov-text"><b>地址：</b>朝阳区望京东园四区1号楼（远安路与望京东路交汇处）</div>
+          </div>
+          <div class="ov-item">
+            <div class="ov-dot" style="background:#1D9E75;margin-top:5px"></div>
+            <div class="ov-text"><b>地铁：</b>15号线望京东站 0.5km / 14号线望京南站 2km</div>
+          </div>
+          <div class="ov-item">
+            <div class="ov-dot" style="background:#BA7517;margin-top:5px"></div>
+            <div class="ov-text"><b>楼层：</b>第一阶段入驻富泽人寿大厦 <b>40层</b></div>
+          </div>
+          <div class="ov-item">
+            <div class="ov-dot" style="background:#888780;margin-top:5px"></div>
+            <div class="ov-text"><b>联络人：</b>马小清（信息数据部）</div>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div id="form-asset" style="display:none">
-        <div class="grid2" style="margin-bottom:12px">
-          <div class="field">
-            <label>物品类型</label>
-            <select id="a-item">
-              <option value="">请选择</option>
-              <option>显示器</option><option>桌子</option><option>个人抽屉</option>
-              <option>边柜</option><option>其他固定资产</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>搬入楼层</label>
-            <select id="a-floor">
-              <option value="">请选择</option>
-              <option>40层（第一阶段）</option>
-              <option>21层（第二阶段）</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>搬入座位号</label>
-            <input type="text" id="a-seat" placeholder="新座位号">
-          </div>
-          <div class="field">
-            <label>备注（选填）</label>
-            <input type="text" id="a-note" placeholder="如：27寸、黑色…">
-          </div>
-        </div>
-        <div class="tip">📌 对应蚂蚁搬家贴纸。填写显示器、桌子、个人抽屉、边柜等固定资产。</div>
-        <div class="field" style="margin-top:12px">
-          <label>拍照上传标签（选填）</label>
-          <div class="photo-upload-area">
-            <input type="file" accept="image/*" multiple capture="environment" id="asset-photos-input" onchange="handlePhotos('asset',this)">
-            <div class="photo-label">📷 点击拍照或选择图片（可多选）</div>
-          </div>
-          <div class="photo-previews" id="asset-preview"></div>
-        </div>
+    <!-- 登记模块 -->
+    <div id="section-record" style="display:none">
+      <div class="status-bar" id="status-bar"></div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-label">总记录</div><div class="metric-value" id="cnt-all">0</div></div>
+        <div class="metric"><div class="metric-label">箱子标签</div><div class="metric-value" id="cnt-box">0</div></div>
+        <div class="metric"><div class="metric-label">固定资产</div><div class="metric-value" id="cnt-asset">0</div></div>
       </div>
 
-      <button class="submit-btn" id="submit-btn" onclick="addRecord()">✓ 提交并生成编号</button>
-    </div>
-
-    <div class="tbl-header">
-      <div class="tbl-title">已登记记录</div>
-      <div class="tbl-actions">
-        <button class="action-btn" onclick="exportCSV()">⬇ 导出CSV</button>
-        <button class="action-btn" id="clear-btn" style="display:none;color:#c0392b" onclick="clearAll()">🗑 清空</button>
+      <div class="card">
+        <div class="card-title">➕ 添加标签记录</div>
+        <div class="type-toggle">
+          <button class="type-btn ab" id="tbtn-box" onclick="setType('box')">📦 标签1：箱子</button>
+          <button class="type-btn" id="tbtn-asset" onclick="setType('asset')">🖥 标签2：固定资产</button>
+        </div>
+        <div id="form-box">
+          <div class="grid2" style="margin-bottom:12px">
+            <div class="field">
+              <label>存放位置</label>
+              <div class="st-toggle">
+                <button class="st-btn on" id="st-office" onclick="setSt('office')">办公区</button>
+                <button class="st-btn" id="st-storage" onclick="setSt('storage')">仓储区</button>
+              </div>
+            </div>
+            <div class="field" id="seat-wrap">
+              <label>座位号（自动带入）</label>
+              <input type="text" id="b-seat" readonly style="background:#f8f8f6;color:#888">
+            </div>
+            <div class="field full">
+              <label>备注（选填）</label>
+              <input type="text" id="b-note" placeholder="如：财务文件、个人书籍…">
+            </div>
+          </div>
+          <div class="tip">📌 对应箱子上的 A4 纸贴纸。姓名、部门由登录信息自动填入；仓储区箱子不填座位号。</div>
+          <div class="field" style="margin-top:12px">
+            <label>拍照上传标签（选填）</label>
+            <div class="photo-upload-area">
+              <input type="file" accept="image/*" multiple capture="environment" id="box-photos-input" onchange="handlePhotos('box',this)">
+              <div class="photo-label">📷 点击拍照或选择图片（可多选）</div>
+            </div>
+            <div class="photo-previews" id="box-preview"></div>
+          </div>
+        </div>
+        <div id="form-asset" style="display:none">
+          <div class="grid2" style="margin-bottom:12px">
+            <div class="field">
+              <label>物品类型</label>
+              <select id="a-item">
+                <option value="">请选择</option>
+                <option>显示器</option><option>桌子</option><option>个人抽屉</option>
+                <option>边柜</option><option>其他固定资产</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>搬入楼层</label>
+              <select id="a-floor">
+                <option value="">请选择</option>
+                <option>40层（第一阶段）</option>
+                <option>21层（第二阶段）</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>搬入座位号</label>
+              <input type="text" id="a-seat" placeholder="新座位号">
+            </div>
+            <div class="field">
+              <label>备注（选填）</label>
+              <input type="text" id="a-note" placeholder="如：27寸、黑色…">
+            </div>
+          </div>
+          <div class="tip">📌 对应蚂蚁搬家贴纸。填写显示器、桌子、个人抽屉、边柜等固定资产。</div>
+          <div class="field" style="margin-top:12px">
+            <label>拍照上传标签（选填）</label>
+            <div class="photo-upload-area">
+              <input type="file" accept="image/*" multiple capture="environment" id="asset-photos-input" onchange="handlePhotos('asset',this)">
+              <div class="photo-label">📷 点击拍照或选择图片（可多选）</div>
+            </div>
+            <div class="photo-previews" id="asset-preview"></div>
+          </div>
+        </div>
+        <button class="submit-btn" id="submit-btn" onclick="addRecord()">✓ 提交并生成编号</button>
       </div>
-    </div>
-    <div class="filter-row">
-      <button class="filter-btn on" onclick="setFilter(this,'all')">全部</button>
-      <button class="filter-btn" onclick="setFilter(this,'box')">箱子标签</button>
-      <button class="filter-btn" onclick="setFilter(this,'asset')">固定资产</button>
-      <button class="filter-btn" onclick="setFilter(this,'mine')">我的记录</button>
-    </div>
-    <div class="tbl-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th style="width:72px">编号</th>
-            <th style="width:56px">类型</th>
-            <th style="width:56px">位置</th>
-            <th style="width:62px">姓名</th>
-            <th>详情</th>
-            <th style="width:80px">备注</th>
-            <th style="width:56px">照片</th>
-            <th style="width:36px"></th>
-          </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-      </table>
+
+      <div class="tbl-header">
+        <div class="tbl-title">已登记记录</div>
+        <div class="tbl-actions">
+          <button class="action-btn" onclick="exportCSV()">⬇ 导出CSV</button>
+          <button class="action-btn" id="clear-btn" style="display:none;color:#c0392b" onclick="clearAll()">🗑 清空</button>
+        </div>
+      </div>
+      <div class="filter-row">
+        <button class="filter-btn on" onclick="setFilter(this,'all')">全部</button>
+        <button class="filter-btn" onclick="setFilter(this,'box')">箱子标签</button>
+        <button class="filter-btn" onclick="setFilter(this,'asset')">固定资产</button>
+        <button class="filter-btn" onclick="setFilter(this,'mine')">我的记录</button>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:72px">编号</th>
+              <th style="width:56px">类型</th>
+              <th style="width:56px">位置</th>
+              <th style="width:62px">姓名</th>
+              <th>详情</th>
+              <th style="width:80px">备注</th>
+              <th style="width:56px">照片</th>
+              <th style="width:36px"></th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
@@ -308,324 +446,217 @@ tr:hover td{background:#fafaf9}
 </div>
 
 <script>
-const GITHUB_OWNER = 'sibylma3413';
-const GITHUB_REPO  = 'moving-labels';
-const DATA_FILE    = 'data.json';
-const API_BASE     = 'https://api.github.com';
-const TOKEN_KEY    = 'gh_token_moving';
+const GITHUB_OWNER='sibylma3413',GITHUB_REPO='moving-labels',DATA_FILE='data.json',API_BASE='https://api.github.com',TOKEN_KEY='gh_token_moving';
+const MEMBERS={'石泽宇':{pw:'jwms.szy',seat:'40',initials:'石泽',admin:false},'段宝莲':{pw:'jwms.dbl',seat:'35',initials:'段宝',admin:false},'韩雄健':{pw:'jwms.hxj',seat:'36',initials:'韩雄',admin:false},'张岩':{pw:'jwms.zy',seat:'38',initials:'张岩',admin:false},'张旭博':{pw:'jwms.zxb',seat:'39',initials:'张旭',admin:false},'马小清':{pw:'jwms.mxq',seat:'34',initials:'马小',admin:true},'宫鹏飞':{pw:'jwms.gpf',seat:'',initials:'宫鹏',admin:false},'张建业':{pw:'jwms.zjy',seat:'37',initials:'张建',admin:false}};
+let currentUser=null,records=[],fileSHA=null,curType='box',curSt='office',curFilter='all',pendingPhotos={box:[],asset:[]},saving=false,GITHUB_TOKEN='';
 
-const MEMBERS = {
-  '石泽宇': {pw:'jwms.szy', seat:'40', initials:'石泽', admin:false},
-  '段宝莲': {pw:'jwms.dbl', seat:'35', initials:'段宝', admin:false},
-  '韩雄健': {pw:'jwms.hxj', seat:'36', initials:'韩雄', admin:false},
-  '张岩':   {pw:'jwms.zy',  seat:'38', initials:'张岩', admin:false},
-  '张旭博': {pw:'jwms.zxb', seat:'39', initials:'张旭', admin:false},
-  '马小清': {pw:'jwms.mxq', seat:'34', initials:'马小', admin:true},
-  '宫鹏飞': {pw:'jwms.gpf', seat:'',   initials:'宫鹏', admin:false},
-  '张建业': {pw:'jwms.zjy', seat:'37', initials:'张建', admin:false},
+window.onload=function(){
+  const saved=localStorage.getItem(TOKEN_KEY);
+  if(saved){GITHUB_TOKEN=saved;document.getElementById('token-section').style.display='none';}
+  else{document.getElementById('token-section').style.display='block';}
 };
 
-let currentUser = null;
-let records = [];
-let fileSHA = null;
-let curType = 'box';
-let curSt = 'office';
-let curFilter = 'all';
-let pendingPhotos = {box:[], asset:[]};
-let saving = false;
-let GITHUB_TOKEN = '';
+function switchTab(t){
+  document.getElementById('section-overview').style.display=t==='overview'?'':'none';
+  document.getElementById('section-record').style.display=t==='record'?'':'none';
+  document.getElementById('tab-overview').className='tab-btn'+(t==='overview'?' active':'');
+  document.getElementById('tab-record').className='tab-btn'+(t==='record'?' active':'');
+}
 
-// 启动：检查是否有 Token
-window.onload = function() {
-  const saved = localStorage.getItem(TOKEN_KEY);
-  if (saved) {
-    GITHUB_TOKEN = saved;
-    // 有 Token，隐藏 Token 输入区
-    document.getElementById('token-section').style.display = 'none';
-  } else {
-    // 没有 Token，显示 Token 输入区
-    document.getElementById('token-section').style.display = 'block';
-  }
-};
-
-// GitHub API
-async function ghGet(path) {
-  const res = await fetch(`${API_BASE}/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`, {
-    headers: {'Authorization': `token ${GITHUB_TOKEN}`, 'Accept': 'application/vnd.github.v3+json'}
-  });
-  if (res.status === 404) return null;
-  if (res.status === 401) {
-    localStorage.removeItem(TOKEN_KEY);
-    GITHUB_TOKEN = '';
-    document.getElementById('token-section').style.display = 'block';
-    throw new Error('Token 失效，请重新填写 Token 并登录');
-  }
-  if (!res.ok) throw new Error('读取失败 ' + res.status);
+async function ghGet(path){
+  const res=await fetch(`${API_BASE}/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`,{headers:{'Authorization':`token ${GITHUB_TOKEN}`,'Accept':'application/vnd.github.v3+json'}});
+  if(res.status===404)return null;
+  if(res.status===401){localStorage.removeItem(TOKEN_KEY);GITHUB_TOKEN='';document.getElementById('token-section').style.display='block';throw new Error('Token 失效，请重新填写 Token 并登录');}
+  if(!res.ok)throw new Error('读取失败 '+res.status);
+  return res.json();
+}
+async function ghPut(path,content,sha){
+  const body={message:'更新标签数据',content:btoa(unescape(encodeURIComponent(content)))};
+  if(sha)body.sha=sha;
+  const res=await fetch(`${API_BASE}/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`,{method:'PUT',headers:{'Authorization':`token ${GITHUB_TOKEN}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!res.ok)throw new Error('保存失败 '+res.status);
   return res.json();
 }
 
-async function ghPut(path, content, sha) {
-  const body = {message: '更新标签数据', content: btoa(unescape(encodeURIComponent(content)))};
-  if (sha) body.sha = sha;
-  const res = await fetch(`${API_BASE}/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`, {
-    method: 'PUT',
-    headers: {'Authorization': `token ${GITHUB_TOKEN}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json'},
-    body: JSON.stringify(body)
-  });
-  if (!res.ok) throw new Error('保存失败 ' + res.status);
-  return res.json();
+async function loadData(){
+  showStatus('正在加载数据…','loading');
+  try{
+    const file=await ghGet(DATA_FILE);
+    if(!file){records=[];fileSHA=null;}
+    else{fileSHA=file.sha;records=JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))))).records||[];}
+    showStatus('','');updateCounters();renderTable();
+  }catch(e){showStatus('加载失败：'+e.message,'err');}
+}
+async function saveData(){
+  const result=await ghPut(DATA_FILE,JSON.stringify({records},null,2),fileSHA);
+  fileSHA=result.content.sha;
+}
+function showStatus(msg,type){
+  const el=document.getElementById('status-bar');
+  if(!msg){el.className='status-bar';return;}
+  el.textContent=msg;el.className='status-bar show '+type;
 }
 
-async function loadData() {
-  showStatus('正在加载数据…', 'loading');
-  try {
-    const file = await ghGet(DATA_FILE);
-    if (!file) { records = []; fileSHA = null; }
-    else {
-      fileSHA = file.sha;
-      records = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))))).records || [];
-    }
-    showStatus('', '');
-    updateCounters();
-    renderTable();
-  } catch(e) {
-    showStatus('加载失败：' + e.message, 'err');
+async function doLogin(){
+  const name=document.getElementById('l-name').value;
+  const pw=document.getElementById('l-pw').value.trim();
+  const err=document.getElementById('l-err');
+  const btn=document.getElementById('login-btn');
+  if(!name){err.textContent='请先选择姓名';err.style.display='block';return;}
+  const m=MEMBERS[name];
+  if(!m||pw!==m.pw){err.textContent='姓名或密码错误';err.style.display='block';return;}
+  if(!GITHUB_TOKEN){
+    const tokenVal=document.getElementById('l-token').value.trim();
+    if(!tokenVal){err.textContent='请填写 GitHub Token';err.style.display='block';return;}
+    if(!tokenVal.startsWith('ghp_')){err.textContent='Token 格式不对，应该是 ghp_ 开头';err.style.display='block';return;}
+    btn.disabled=true;btn.textContent='验证中…';
+    try{
+      const res=await fetch(`${API_BASE}/user`,{headers:{'Authorization':`token ${tokenVal}`,'Accept':'application/vnd.github.v3+json'}});
+      if(!res.ok){err.textContent='Token 无效，请重新生成一个';err.style.display='block';btn.disabled=false;btn.textContent='登录 →';return;}
+      localStorage.setItem(TOKEN_KEY,tokenVal);GITHUB_TOKEN=tokenVal;
+    }catch(e){err.textContent='网络错误，请重试';err.style.display='block';btn.disabled=false;btn.textContent='登录 →';return;}
+    btn.disabled=false;btn.textContent='登录 →';
   }
-}
-
-async function saveData() {
-  const result = await ghPut(DATA_FILE, JSON.stringify({records}, null, 2), fileSHA);
-  fileSHA = result.content.sha;
-}
-
-function showStatus(msg, type) {
-  const el = document.getElementById('status-bar');
-  if (!msg) { el.className='status-bar'; return; }
-  el.textContent = msg;
-  el.className = 'status-bar show ' + type;
-}
-
-// 登录
-async function doLogin() {
-  const name = document.getElementById('l-name').value;
-  const pw   = document.getElementById('l-pw').value.trim();
-  const err  = document.getElementById('l-err');
-  const btn  = document.getElementById('login-btn');
-
-  if (!name) { err.textContent='请先选择姓名'; err.style.display='block'; return; }
-  const m = MEMBERS[name];
-  if (!m || pw !== m.pw) { err.textContent='姓名或密码错误'; err.style.display='block'; return; }
-
-  // 如果没有存 Token，检查是否填了
-  if (!GITHUB_TOKEN) {
-    const tokenVal = document.getElementById('l-token').value.trim();
-    if (!tokenVal) { err.textContent='请填写 GitHub Token'; err.style.display='block'; return; }
-    if (!tokenVal.startsWith('ghp_')) { err.textContent='Token 格式不对，应该是 ghp_ 开头'; err.style.display='block'; return; }
-    // 验证 Token
-    btn.disabled = true;
-    btn.textContent = '验证中…';
-    try {
-      const res = await fetch(`${API_BASE}/user`, {
-        headers: {'Authorization': `token ${tokenVal}`, 'Accept': 'application/vnd.github.v3+json'}
-      });
-      if (!res.ok) {
-        err.textContent = 'Token 无效，请重新生成一个';
-        err.style.display = 'block';
-        btn.disabled = false;
-        btn.textContent = '登录 →';
-        return;
-      }
-      localStorage.setItem(TOKEN_KEY, tokenVal);
-      GITHUB_TOKEN = tokenVal;
-    } catch(e) {
-      err.textContent = '网络错误，请重试';
-      err.style.display = 'block';
-      btn.disabled = false;
-      btn.textContent = '登录 →';
-      return;
-    }
-    btn.disabled = false;
-    btn.textContent = '登录 →';
-  }
-
-  err.style.display = 'none';
-  currentUser = {name, ...m};
-  document.getElementById('login-page').style.display = 'none';
-  document.getElementById('app-page').style.display = 'block';
-  document.getElementById('top-name').textContent = name;
-  document.getElementById('top-role').textContent = m.admin ? '联络员（管理员）' : (m.seat ? '座位 '+m.seat : 'IT运维 · 非北京base');
-  document.getElementById('top-avatar').textContent = m.initials;
-  document.getElementById('clear-btn').style.display = m.admin ? 'flex' : 'none';
-  document.getElementById('b-seat').value = m.seat || '（无固定座位）';
+  err.style.display='none';
+  currentUser={name,...m};
+  document.getElementById('login-page').style.display='none';
+  document.getElementById('app-page').style.display='block';
+  document.getElementById('top-name').textContent=name;
+  document.getElementById('top-role').textContent=m.admin?'联络员（管理员）':(m.seat?'座位 '+m.seat:'IT运维 · 非北京base');
+  document.getElementById('top-avatar').textContent=m.initials;
+  document.getElementById('clear-btn').style.display=m.admin?'flex':'none';
+  document.getElementById('b-seat').value=m.seat||'（无固定座位）';
   loadData();
 }
-document.getElementById('l-pw').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+document.getElementById('l-pw').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 
-function doLogout() {
-  currentUser = null; records = []; fileSHA = null;
-  pendingPhotos = {box:[], asset:[]};
-  document.getElementById('app-page').style.display = 'none';
-  document.getElementById('login-page').style.display = 'flex';
-  document.getElementById('l-name').value = '';
-  document.getElementById('l-pw').value = '';
-  document.getElementById('box-preview').innerHTML = '';
-  document.getElementById('asset-preview').innerHTML = '';
+function doLogout(){
+  currentUser=null;records=[];fileSHA=null;pendingPhotos={box:[],asset:[]};
+  document.getElementById('app-page').style.display='none';
+  document.getElementById('login-page').style.display='flex';
+  document.getElementById('l-name').value='';document.getElementById('l-pw').value='';
+  document.getElementById('box-preview').innerHTML='';document.getElementById('asset-preview').innerHTML='';
+  switchTab('overview');
 }
 
-function setType(t) {
-  curType = t;
-  document.getElementById('form-box').style.display   = t==='box' ? '' : 'none';
-  document.getElementById('form-asset').style.display = t==='asset' ? '' : 'none';
-  document.getElementById('tbtn-box').className   = 'type-btn' + (t==='box' ? ' ab' : '');
-  document.getElementById('tbtn-asset').className = 'type-btn' + (t==='asset' ? ' aa' : '');
+function setType(t){
+  curType=t;
+  document.getElementById('form-box').style.display=t==='box'?'':'none';
+  document.getElementById('form-asset').style.display=t==='asset'?'':'none';
+  document.getElementById('tbtn-box').className='type-btn'+(t==='box'?' ab':'');
+  document.getElementById('tbtn-asset').className='type-btn'+(t==='asset'?' aa':'');
 }
-
-function setSt(s) {
-  curSt = s;
-  document.getElementById('st-office').className  = 'st-btn' + (s==='office' ? ' on' : '');
-  document.getElementById('st-storage').className = 'st-btn' + (s==='storage' ? ' on' : '');
-  const sw = document.getElementById('seat-wrap');
-  const si = document.getElementById('b-seat');
+function setSt(s){
+  curSt=s;
+  document.getElementById('st-office').className='st-btn'+(s==='office'?' on':'');
+  document.getElementById('st-storage').className='st-btn'+(s==='storage'?' on':'');
+  const sw=document.getElementById('seat-wrap'),si=document.getElementById('b-seat');
   if(s==='storage'){sw.style.opacity='0.4';si.value='（仓储不填）';}
   else{sw.style.opacity='1';si.value=currentUser.seat||'（无固定座位）';}
 }
-
-function handlePhotos(kind, input) {
-  Array.from(input.files).forEach(file => {
-    if(!file.type.startsWith('image/')) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      const idx = pendingPhotos[kind].length;
-      pendingPhotos[kind].push(e.target.result);
-      const wrap = document.getElementById(kind+'-preview');
-      const thumb = document.createElement('div');
-      thumb.className = 'photo-thumb';
-      thumb.innerHTML = `<img src="${e.target.result}"><button class="del-photo" onclick="removePhoto('${kind}',${idx},this.parentNode)">×</button>`;
+function handlePhotos(kind,input){
+  Array.from(input.files).forEach(file=>{
+    if(!file.type.startsWith('image/'))return;
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const idx=pendingPhotos[kind].length;pendingPhotos[kind].push(e.target.result);
+      const wrap=document.getElementById(kind+'-preview');
+      const thumb=document.createElement('div');thumb.className='photo-thumb';
+      thumb.innerHTML=`<img src="${e.target.result}"><button class="del-photo" onclick="removePhoto('${kind}',${idx},this.parentNode)">×</button>`;
       wrap.appendChild(thumb);
-    };
-    reader.readAsDataURL(file);
-  });
-  input.value='';
+    };reader.readAsDataURL(file);
+  });input.value='';
 }
-function removePhoto(kind, idx, el) { pendingPhotos[kind][idx]=null; el.remove(); }
+function removePhoto(kind,idx,el){pendingPhotos[kind][idx]=null;el.remove();}
 
-async function addRecord() {
-  if(saving) return;
-  const btn = document.getElementById('submit-btn');
-  btn.disabled = true;
-  showStatus('正在同步…', 'loading');
-  try {
-    const file = await ghGet(DATA_FILE);
-    if(file) { fileSHA=file.sha; records=JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))))).records||[]; }
-  } catch(e) { showStatus(e.message,'err'); btn.disabled=false; return; }
-
-  const nextNum = records.length > 0 ? Math.max(...records.map(r=>parseInt(r.num.replace('SJ-',''))||0))+1 : 1;
-  const photos = (pendingPhotos[curType]||[]).filter(Boolean);
-  const rec = {id:Date.now(), num:'SJ-'+nextNum, type:curType, owner:currentUser.name, dept:'信息数据部', name:currentUser.name, ts:new Date().toLocaleString('zh-CN',{hour12:false}), photos};
-
-  if(curType==='box') {
-    rec.storage=curSt; rec.seat=curSt==='office'?(currentUser.seat||''):'';
+async function addRecord(){
+  if(saving)return;
+  const btn=document.getElementById('submit-btn');btn.disabled=true;
+  showStatus('正在同步…','loading');
+  try{
+    const file=await ghGet(DATA_FILE);
+    if(file){fileSHA=file.sha;records=JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))))).records||[];}
+  }catch(e){showStatus(e.message,'err');btn.disabled=false;return;}
+  const nextNum=records.length>0?Math.max(...records.map(r=>parseInt(r.num.replace('SJ-',''))||0))+1:1;
+  const photos=(pendingPhotos[curType]||[]).filter(Boolean);
+  const rec={id:Date.now(),num:'SJ-'+nextNum,type:curType,owner:currentUser.name,dept:'信息数据部',name:currentUser.name,ts:new Date().toLocaleString('zh-CN',{hour12:false}),photos};
+  if(curType==='box'){
+    rec.storage=curSt;rec.seat=curSt==='office'?(currentUser.seat||''):'';
     rec.detail=curSt==='office'?'座位:'+(currentUser.seat||'—'):'仓储区';
     rec.note=document.getElementById('b-note').value.trim();
-  } else {
-    const item=document.getElementById('a-item').value;
-    const floor=document.getElementById('a-floor').value;
+  }else{
+    const item=document.getElementById('a-item').value,floor=document.getElementById('a-floor').value;
     if(!item){showStatus('请选择物品类型','err');btn.disabled=false;return;}
-    rec.storage='office'; rec.item=item; rec.floor=floor;
+    rec.storage='office';rec.item=item;rec.floor=floor;
     rec.seat=document.getElementById('a-seat').value.trim();
     rec.detail=item+(floor?' · '+floor:'');
     rec.note=document.getElementById('a-note').value.trim();
   }
-
-  records.push(rec);
-  saving=true;
-  try {
+  records.push(rec);saving=true;
+  try{
     await saveData();
-    showStatus('✓ 已保存，编号 '+rec.num, 'ok');
+    showStatus('✓ 已保存，编号 '+rec.num,'ok');
     if(curType==='box'){document.getElementById('b-note').value='';}
     else{document.getElementById('a-item').value='';document.getElementById('a-floor').value='';document.getElementById('a-seat').value='';document.getElementById('a-note').value='';}
-    pendingPhotos[curType]=[]; document.getElementById(curType+'-preview').innerHTML='';
-    updateCounters(); renderTable();
-  } catch(e) { records.pop(); showStatus('保存失败：'+e.message,'err'); }
-  saving=false; btn.disabled=false;
+    pendingPhotos[curType]=[];document.getElementById(curType+'-preview').innerHTML='';
+    updateCounters();renderTable();
+  }catch(e){records.pop();showStatus('保存失败：'+e.message,'err');}
+  saving=false;btn.disabled=false;
 }
 
-async function deleteRecord(id) {
-  const rec=records.find(r=>r.id===id);
-  if(!rec) return;
+async function deleteRecord(id){
+  const rec=records.find(r=>r.id===id);if(!rec)return;
   if(!currentUser.admin&&rec.owner!==currentUser.name){alert('只能删除自己的记录');return;}
-  if(!confirm('确认删除 '+rec.num+' ？')) return;
+  if(!confirm('确认删除 '+rec.num+' ？'))return;
   records=records.filter(r=>r.id!==id);
   showStatus('正在删除…','loading');
-  try { await saveData(); showStatus('已删除','ok'); updateCounters(); renderTable(); }
-  catch(e) { showStatus('删除失败：'+e.message,'err'); }
+  try{await saveData();showStatus('已删除','ok');updateCounters();renderTable();}
+  catch(e){showStatus('删除失败：'+e.message,'err');}
 }
-
-async function clearAll() {
-  if(!currentUser.admin) return;
-  if(!confirm('确认清空全部 '+records.length+' 条记录？')) return;
+async function clearAll(){
+  if(!currentUser.admin)return;
+  if(!confirm('确认清空全部 '+records.length+' 条记录？'))return;
   records=[];
-  try { await saveData(); showStatus('已清空','ok'); updateCounters(); renderTable(); }
-  catch(e) { showStatus('操作失败：'+e.message,'err'); }
+  try{await saveData();showStatus('已清空','ok');updateCounters();renderTable();}
+  catch(e){showStatus('操作失败：'+e.message,'err');}
 }
-
-function setFilter(btn,f) {
-  curFilter=f;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on'); renderTable();
+function setFilter(btn,f){
+  curFilter=f;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderTable();
 }
-
-function updateCounters() {
+function updateCounters(){
   document.getElementById('cnt-all').textContent=records.length;
   document.getElementById('cnt-box').textContent=records.filter(r=>r.type==='box').length;
   document.getElementById('cnt-asset').textContent=records.filter(r=>r.type==='asset').length;
 }
-
-function renderTable() {
+function renderTable(){
   let list=records;
-  if(curFilter==='box') list=records.filter(r=>r.type==='box');
-  if(curFilter==='asset') list=records.filter(r=>r.type==='asset');
-  if(curFilter==='mine') list=records.filter(r=>r.owner===currentUser.name);
+  if(curFilter==='box')list=records.filter(r=>r.type==='box');
+  if(curFilter==='asset')list=records.filter(r=>r.type==='asset');
+  if(curFilter==='mine')list=records.filter(r=>r.owner===currentUser.name);
   const tbody=document.getElementById('tbody');
   if(!list.length){tbody.innerHTML='<tr><td colspan="8" class="empty-state">暂无记录</td></tr>';return;}
   tbody.innerHTML=list.map(r=>{
     const canDel=currentUser.admin||r.owner===currentUser.name;
-    const typeBadge=r.type==='box'?'<span class="badge b-box">箱子</span>':'<span class="badge b-asset">资产</span>';
-    const stBadge=r.storage==='storage'?'<span class="badge b-storage">仓储</span>':'<span class="badge b-office">办公</span>';
-    const othMark=(currentUser.admin&&r.owner!==currentUser.name)?' <span class="badge b-admin">他人</span>':'';
+    const typeBadge=r.type==='box'?'<span class="rbadge rb-box">箱子</span>':'<span class="rbadge rb-asset">资产</span>';
+    const stBadge=r.storage==='storage'?'<span class="rbadge rb-storage">仓储</span>':'<span class="rbadge rb-office">办公</span>';
+    const othMark=(currentUser.admin&&r.owner!==currentUser.name)?' <span class="rbadge rb-admin">他人</span>':'';
     const photosHtml=(r.photos&&r.photos.length)?`<span class="photo-link" onclick="openPhotoModal(${r.id})">📷 ${r.photos.length}张</span>`:'<span style="color:#ccc">—</span>';
-    return `<tr>
-      <td><span class="num-mono">${r.num}</span></td>
-      <td>${typeBadge}</td><td>${stBadge}</td>
-      <td>${r.name}${othMark}</td>
-      <td title="${r.detail}">${r.detail}</td>
-      <td style="color:#888">${r.note||'—'}</td>
-      <td>${photosHtml}</td>
-      <td>${canDel?`<button class="del-btn" onclick="deleteRecord(${r.id})">✕</button>`:''}</td>
-    </tr>`;
+    return `<tr><td><span class="num-mono">${r.num}</span></td><td>${typeBadge}</td><td>${stBadge}</td><td>${r.name}${othMark}</td><td title="${r.detail}">${r.detail}</td><td style="color:#888">${r.note||'—'}</td><td>${photosHtml}</td><td>${canDel?`<button class="del-btn" onclick="deleteRecord(${r.id})">✕</button>`:''}</td></tr>`;
   }).join('');
 }
-
-function openPhotoModal(id) {
-  const rec=records.find(r=>r.id===id);
-  if(!rec||!rec.photos||!rec.photos.length) return;
+function openPhotoModal(id){
+  const rec=records.find(r=>r.id===id);if(!rec||!rec.photos||!rec.photos.length)return;
   document.getElementById('modal-title-text').textContent=rec.num+' · '+rec.name+' 的标签照片';
   document.getElementById('modal-photos').innerHTML=rec.photos.map(p=>`<img src="${p}" onclick="window.open('${p}')">`).join('');
   document.getElementById('photo-modal').classList.add('open');
 }
-function closePhotoModal(e) {
-  if(!e||e.target===document.getElementById('photo-modal'))
-    document.getElementById('photo-modal').classList.remove('open');
-}
-
-function exportCSV() {
+function closePhotoModal(e){if(!e||e.target===document.getElementById('photo-modal'))document.getElementById('photo-modal').classList.remove('open');}
+function exportCSV(){
   if(!records.length){alert('暂无数据');return;}
   const hdr='编号,类型,存放,姓名,部门,详情,备注,照片数,登记时间\n';
   const rows=records.map(r=>[r.num,r.type==='box'?'箱子标签':'固定资产',r.storage==='storage'?'仓储':'办公',r.name,r.dept,r.detail,r.note||'',(r.photos||[]).length,r.ts||''].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
   const blob=new Blob(['\uFEFF'+hdr+rows],{type:'text/csv;charset=utf-8'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download='信息数据部搬迁标签.csv';a.click();
-  URL.revokeObjectURL(url);
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='信息数据部搬迁标签.csv';a.click();URL.revokeObjectURL(url);
 }
 </script>
 </body>
